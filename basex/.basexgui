@@ -1,0 +1,140 @@
+# Paths
+INPUTPATH = C:/Users/eckey/Google Drive/Masterarbeit/Software/Auslieferung/basex/
+DATAPATH = C:/Users/eckey/Google Drive/Masterarbeit/Software/Auslieferung/basex/
+WORKPATH = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/webapp/restxq/
+PROJECTPATH = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex
+EDITOR = 10
+EDITOR1 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/webapp/restxq/elicitation-assist.xqm
+EDITOR2 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/repo/masterthesis/modules/consistency-manager.xqm
+EDITOR3 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/repo/masterthesis/modules/care/view/info-view.xqm
+EDITOR4 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/repo/masterthesis/modules/inspection/inspection.xqm
+EDITOR5 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/webapp/restxq/inspection/inspection.xqm
+EDITOR6 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/webapp/restxq/inspection/inspection-module.xqm
+EDITOR7 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/webapp/restxq/glossary.xqm
+EDITOR8 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/repo/masterthesis/modules/care-manager.xqm
+EDITOR9 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/webapp/WEB-INF/web.xml
+EDITOR10 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/webapp/restxq/activitiy-list.xqm
+INPUTS = 0
+OPEN = 10
+OPEN1 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/webapp/restxq/activitiy-list.xqm
+OPEN2 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/webapp/WEB-INF/web.xml
+OPEN3 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/repo/masterthesis/modules/care-manager.xqm
+OPEN4 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/webapp/restxq/glossary.xqm
+OPEN5 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/webapp/restxq/inspection/inspection-module.xqm
+OPEN6 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/repo/masterthesis/modules/inspection/inspection.xqm
+OPEN7 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/webapp/restxq/inspection/inspection.xqm
+OPEN8 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/repo/masterthesis/modules/care/view/info-view.xqm
+OPEN9 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/repo/masterthesis/modules/consistency-manager.xqm
+OPEN10 = /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/webapp/restxq/elicitation-assist.xqm
+
+# Layout
+FONT = SansSerif
+MONOFONT = Consolas
+FONTTYPE = 0
+FONTSIZE = 14
+COLORRED = 15
+COLORGREEN = 11
+COLORBLUE = 6
+
+# Windows
+UPDATEVERSION = 8.6.1
+VIEWS = V H editor folder map plot - H text info table tree explore - - 
+GUISIZE0 = 1004
+GUISIZE1 = 748
+GUILOC0 = 10
+GUILOC1 = 10
+MAXSTATE = true
+SHOWBUTTONS = true
+SHOWINPUT = true
+SHOWSTATUS = true
+SHOWINFO = false
+SHOWMAP = false
+SHOWTABLE = false
+SHOWTEXT = true
+SHOWFOLDER = false
+SHOWEXPLORE = false
+SHOWPLOT = false
+SHOWEDITOR = true
+SHOWTREE = false
+SHOWPROJECT = true
+FONTSLOC0 = 10
+FONTSLOC1 = 530
+COLORSLOC0 = 530
+COLORSLOC1 = 620
+BINDINGSLOC0 = 100
+BINDINGSLOC1 = 230
+PREFTAB = 1
+LOOKANDFEEL = 
+SHOWNAME = true
+MOUSEFOCUS = false
+SIMPLEFD = false
+ASCSORT = true
+CASESORT = true
+MERGEDUPL = false
+SHOWMARGIN = true
+MARGIN = 80
+TABSPACES = true
+INDENT = 2
+SHOWINVISIBLE = true
+SHOWNL = false
+SHOWLINES = true
+MARKLINE = true
+SAVERUN = false
+AUTO = false
+FILES = *.xml, *.xq*
+HIDDENFILES = true
+SEARCHMODE = 0
+FILTERRT = false
+EXECRT = false
+DBNAME = 
+LASTINSERT = 1
+
+# Visualizations
+MAPATTS = false
+MAPOFFSETS = 3
+MAPALGO = 0
+MAPWEIGHT = 0
+TREESLIM = true
+TREEATTS = false
+PLOTDOTS = 0
+PLOTXLOG = false
+PLOTYLOG = false
+MAXTEXT = 2097152
+MAXHITS = 250000
+
+# Search
+SR_SEARCH = http://basex.org
+SR_REPLACE = masterthesis
+SR_REGEX = false
+SR_CASE = false
+SR_WORD = false
+SR_MULTI = false
+SEARCHED = 12
+SEARCHED1 = trace
+SEARCHED2 = session
+SEARCHED3 = adesso
+SEARCHED4 = basex.org
+SEARCHED5 = http://basex.org
+SEARCHED6 = 
+SEARCHED7 = incon
+SEARCHED8 = _PRED
+SEARCHED9 = PRED_
+SEARCHED10 = diff-predecessor-gateway
+SEARCHED11 = reinfoview:diff-predecessor-gateway(
+SEARCHED12 = DIFF_PRED
+REPLACED = 8
+REPLACED1 = masterthesis
+REPLACED2 = _PRED_
+REPLACED3 = @return
+REPLACED4 = $changes
+REPLACED5 = 
+REPLACED6 = inspection:get-modules()
+REPLACED7 = Funktion
+REPLACED8 = @Prefix
+
+# History
+COMMANDS = 0
+SEARCH = 0
+XQUERY = 0
+
+# Local Options

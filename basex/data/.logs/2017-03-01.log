@@ -1,0 +1,8 @@
+10:31:41.458	127.0.0.1:52142	admin	REQUEST	[GET] http://127.0.0.1:8984/care
+10:31:41.475	127.0.0.1:52142	admin	200		17.35 ms
+12:26:45.053	0:0:0:0:0:0:0:1:56778	admin	REQUEST	[GET] http://localhost:8984/
+12:26:45.055	0:0:0:0:0:0:0:1:56778	admin	400	Gestoppt in /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/webapp/restxq/activitiy-list.xqm, 13/29: [XQST0059] Module 'masterthesis/modules/ui-manager' not found.	2.37 ms
+12:34:56.115	0:0:0:0:0:0:0:1:57132	admin	REQUEST	[GET] http://localhost:8984/
+12:34:56.116	0:0:0:0:0:0:0:1:57132	admin	400	Gestoppt in /Users/eckey/data/private/paper BPM/Auslieferung/basex-8.2.1/basex/webapp/restxq/activitiy-list.xqm, 13/29: [XQST0059] Module 'masterthesis/modules/ui-manager' not found.	1.18 ms
+12:45:57.784	SERVER	admin	OK	Server wurde gestoppt (Port: 1984).
+12:45:57.785	SERVER	admin	OK	HTTP Server wurde gestoppt (Port: 8984).

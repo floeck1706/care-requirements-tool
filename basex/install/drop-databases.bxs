@@ -1,0 +1,3 @@
+drop db care-packages 
+drop db glossary
+drop db inspections

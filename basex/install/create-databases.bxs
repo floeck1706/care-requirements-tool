@@ -1,0 +1,3 @@
+create db care-packages
+create db glossary install/xml/glossary.xml
+create db inspections install/xml/inspections.xml

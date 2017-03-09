@@ -1,0 +1,86 @@
+16:16:59.137	SERVER	admin	OK	Server wurde gestartet (Port: 1984)
+16:16:59.355	SERVER	admin	OK	HTTP Server wurde gestartet (Port: 8984)
+16:16:59.520	127.0.0.1:52949	admin	REQUEST	[GET] http://127.0.0.1:8984/
+16:17:02.739	127.0.0.1:52949	admin	200		3221.91 ms
+16:17:48.469	127.0.0.1:52949	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager/list
+16:17:48.974	127.0.0.1:52949	admin	200		506.72 ms
+16:17:51.253	127.0.0.1:52949	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager
+16:17:51.577	127.0.0.1:52949	admin	200		325.19 ms
+16:18:01.846	127.0.0.1:52949	admin	REQUEST	[POST] http://127.0.0.1:8984/data/upload
+16:18:04.294	127.0.0.1:52949	admin	200		2448.02 ms
+16:18:04.299	127.0.0.1:52949	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager
+16:18:05.672	127.0.0.1:52949	admin	200		1373.64 ms
+16:18:09.820	127.0.0.1:52949	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager/delete-pkgs/
+16:18:09.826	127.0.0.1:52949	admin	404	No function found that matches the request.	7.16 ms
+16:18:14.660	127.0.0.1:52949	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager
+16:18:16.091	127.0.0.1:52949	admin	200		1429.35 ms
+16:18:19.691	127.0.0.1:52990	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager/delete-pkgs/197886a4-83c4-44c2-bda7-8ca7281a8e64
+16:18:19.866	127.0.0.1:52990	admin	200		175.11 ms
+16:18:19.875	127.0.0.1:52990	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager
+16:18:20.149	127.0.0.1:52990	admin	200		274.81 ms
+16:18:21.714	127.0.0.1:52990	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager/delete-pkgs/
+16:18:21.718	127.0.0.1:52990	admin	404	No function found that matches the request.	4.92 ms
+16:18:50.104	127.0.0.1:52990	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager
+16:18:50.232	127.0.0.1:52990	admin	200		129.0 ms
+16:18:52.142	127.0.0.1:52949	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager
+16:18:52.339	127.0.0.1:52949	admin	200		194.08 ms
+16:18:54.851	127.0.0.1:52949	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager
+16:18:55.021	127.0.0.1:52949	admin	200		161.01 ms
+16:18:56.212	127.0.0.1:52987	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager
+16:18:56.339	127.0.0.1:52987	admin	200		122.09 ms
+16:18:57.142	127.0.0.1:52989	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager
+16:18:57.290	127.0.0.1:52989	admin	200		133.92 ms
+16:19:23.944	127.0.0.1:52990	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager
+16:19:24.024	127.0.0.1:52990	admin	400	Gestoppt in C:/Users/eckey/Google Drive/Masterarbeit/Software/Auslieferung/basex/repo/org/basex/modules/care-manager.xqm, 147/32: [bxerr:BXDB0002] Die Datenbank 'care-packages' wurde nicht gefunden. Stack Trace: - C:/Users/eckey/Google Drive/Masterarbeit/Software/Auslieferung/basex/webapp/restxq/process-list.xqm, 24/12	77.86 ms
+16:19:34.410	127.0.0.1:52990	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager
+16:19:34.629	127.0.0.1:52990	admin	200		206.98 ms
+16:21:14.332	127.0.0.1:53068	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager
+16:21:14.440	127.0.0.1:53068	admin	200		106.75 ms
+16:21:20.888	127.0.0.1:53070	admin	REQUEST	[POST] http://127.0.0.1:8984/data/upload
+16:21:21.882	127.0.0.1:53070	admin	200		993.92 ms
+16:21:21.887	127.0.0.1:53070	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager
+16:21:23.206	127.0.0.1:53070	admin	200		1319.05 ms
+16:21:24.851	127.0.0.1:53072	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager/package/197886a4-83c4-44c2-bda7-8ca7281a8e64/589dc1c5-7d27-49ca-8130-3aed2df80e7f
+16:21:25.861	127.0.0.1:53072	admin	200		1010.25 ms
+16:21:27.340	127.0.0.1:53072	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager/assist/197886a4-83c4-44c2-bda7-8ca7281a8e64/589dc1c5-7d27-49ca-8130-3aed2df80e7f/d15b0b06-d63e-4386-b154-01b897953786
+16:21:27.894	127.0.0.1:53072	admin	200		543.45 ms
+16:22:00.930	127.0.0.1:53070	admin	REQUEST	[POST] http://127.0.0.1:8984/restancil/save/197886a4-83c4-44c2-bda7-8ca7281a8e64/589dc1c5-7d27-49ca-8130-3aed2df80e7f/d15b0b06-d63e-4386-b154-01b897953786?
+16:22:01.110	127.0.0.1:53070	admin	200		180.57 ms
+16:22:01.118	127.0.0.1:53070	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager/assist/197886a4-83c4-44c2-bda7-8ca7281a8e64/589dc1c5-7d27-49ca-8130-3aed2df80e7f/d15b0b06-d63e-4386-b154-01b897953786?compare-pkg-version=
+16:22:01.690	127.0.0.1:53070	admin	200		571.12 ms
+16:22:04.920	127.0.0.1:53070	admin	REQUEST	[GET] http://127.0.0.1:8984/requirements-manager/assist/197886a4-83c4-44c2-bda7-8ca7281a8e64/589dc1c5-7d27-49ca-8130-3aed2df80e7f/172bc894-eaab-49aa-bf32-40b947dede85
+16:22:05.749	127.0.0.1:53070	admin	200		828.57 ms
+23:42:09.398	0:0:0:0:0:0:0:1:51590	admin	REQUEST	[GET] http://localhost:8984/
+23:42:09.970	0:0:0:0:0:0:0:1:51590	admin	200		573.54 ms
+23:42:10.014	0:0:0:0:0:0:0:1:51591	admin	REQUEST	[GET] http://localhost:8984/care-webapp/static/flat-ui/css/flat-ui.min.css
+23:42:10.014	0:0:0:0:0:0:0:1:51590	admin	REQUEST	[GET] http://localhost:8984/care-webapp/static/bootstrap-3.3.4-dist/css/bootstrap.min.css
+23:42:10.018	0:0:0:0:0:0:0:1:51591	admin	404	No function found that matches the request.	5.69 ms
+23:42:10.022	0:0:0:0:0:0:0:1:51590	admin	404	No function found that matches the request.	8.93 ms
+23:42:10.026	0:0:0:0:0:0:0:1:51593	admin	REQUEST	[GET] http://localhost:8984/care-webapp/static/immybox-master/immybox.css
+23:42:10.026	0:0:0:0:0:0:0:1:51592	admin	REQUEST	[GET] http://localhost:8984/care-webapp/static/care/css/flat-ui-custom.css
+23:42:10.030	0:0:0:0:0:0:0:1:51593	admin	404	No function found that matches the request.	8.08 ms
+23:42:10.034	0:0:0:0:0:0:0:1:51594	admin	REQUEST	[GET] http://localhost:8984/care-webapp/static/care/css/care-ui.css
+23:42:10.034	0:0:0:0:0:0:0:1:51591	admin	REQUEST	[GET] http://localhost:8984/care-webapp/static/care/css/requirements.css
+23:42:10.034	0:0:0:0:0:0:0:1:51590	admin	REQUEST	[GET] http://localhost:8984/care-webapp/static/flat-ui/js/vendor/jquery.min.js
+23:42:10.034	0:0:0:0:0:0:0:1:51592	admin	404	No function found that matches the request.	12.17 ms
+23:42:10.042	0:0:0:0:0:0:0:1:51595	admin	REQUEST	[GET] http://localhost:8984/care-webapp/static/flat-ui/js/vendor/video.js
+23:42:10.042	0:0:0:0:0:0:0:1:51590	admin	404	No function found that matches the request.	6.58 ms
+23:42:10.046	0:0:0:0:0:0:0:1:51593	admin	REQUEST	[GET] http://localhost:8984/care-webapp/static/flat-ui/js/flat-ui.min.js
+23:42:10.046	0:0:0:0:0:0:0:1:51591	admin	404	No function found that matches the request.	14.53 ms
+23:42:10.050	0:0:0:0:0:0:0:1:51591	admin	REQUEST	[GET] http://localhost:8984/care-webapp/static/bootstrap-3.3.4-dist/js/bootstrap.min.js
+23:42:10.054	0:0:0:0:0:0:0:1:51594	admin	404	No function found that matches the request.	19.76 ms
+23:42:10.058	0:0:0:0:0:0:0:1:51594	admin	REQUEST	[GET] http://localhost:8984/care-webapp/static/care/js/requirements.js
+23:42:10.058	0:0:0:0:0:0:0:1:51591	admin	404	No function found that matches the request.	7.2 ms
+23:42:10.062	0:0:0:0:0:0:0:1:51592	admin	REQUEST	[GET] http://localhost:8984/care-webapp/static/care/js/ajax.js
+23:42:10.066	0:0:0:0:0:0:0:1:51593	admin	404	No function found that matches the request.	26.96 ms
+23:42:10.074	0:0:0:0:0:0:0:1:51593	admin	REQUEST	[GET] http://localhost:8984/care-webapp/static/bpmn-js-seed-master/bower_components/bpmn-js/dist/bpmn-viewer.js
+23:42:10.078	0:0:0:0:0:0:0:1:51595	admin	404	No function found that matches the request.	37.92 ms
+23:42:10.082	0:0:0:0:0:0:0:1:51590	admin	REQUEST	[GET] http://localhost:8984/care-webapp/static/immybox-master/jquery.immybox.js
+23:42:10.086	0:0:0:0:0:0:0:1:51593	admin	404	No function found that matches the request.	9.15 ms
+23:42:10.086	0:0:0:0:0:0:0:1:51591	admin	REQUEST	[GET] http://localhost:8984/care-webapp/static/care/js/inspections.js
+23:42:10.090	0:0:0:0:0:0:0:1:51592	admin	404	No function found that matches the request.	27.81 ms
+23:42:10.134	0:0:0:0:0:0:0:1:51594	admin	404	No function found that matches the request.	77.54 ms
+23:42:10.150	0:0:0:0:0:0:0:1:51591	admin	404	No function found that matches the request.	63.39 ms
+23:42:10.158	0:0:0:0:0:0:0:1:51590	admin	404	No function found that matches the request.	78.95 ms
+23:42:18.617	SERVER	admin	OK	Server wurde gestoppt (Port: 1984)
+23:42:18.617	SERVER	admin	OK	HTTP Server wurde gestoppt (Port: 8984)
