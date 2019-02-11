@@ -32,6 +32,28 @@ return
 };
 
 (:~
+ : Diese Funktion berechnet den Pool einer Aktivität anhand der Koordinaten im BPMN Modell
+ : @param $package XPDL
+ : @param $activity Aktivität
+ : @return <Pool>, in der die Aktivität liegt
+:)
+declare function xm:getPoolForActivity($package, $activity as element(xpdl:Activity)) as element(xpdl:Pool)*{
+let $lanes:=$package/xpdl:Pools/xpdl:Pool/xpdl:Lanes/xpdl:Lane
+let $x:=xs:decimal($activity/xpdl:NodeGraphicsInfos/xpdl:NodeGraphicsInfo/xpdl:Coordinates/@XCoordinate)
+let $y:=xs:decimal($activity/xpdl:NodeGraphicsInfos/xpdl:NodeGraphicsInfo/xpdl:Coordinates/@YCoordinate)
+return
+  for $lane in $lanes
+  let $px:=xs:decimal($lane/ancestor::xpdl:Pool/xpdl:NodeGraphicsInfos/xpdl:NodeGraphicsInfo/xpdl:Coordinates/@XCoordinate)
+  let $py:=xs:decimal($lane/ancestor::xpdl:Pool/xpdl:NodeGraphicsInfos/xpdl:NodeGraphicsInfo/xpdl:Coordinates/@YCoordinate)
+  let $lx1:=xs:decimal($lane/xpdl:NodeGraphicsInfos/xpdl:NodeGraphicsInfo/xpdl:Coordinates/@XCoordinate)+$px
+  let $lx2:=xs:decimal($lane/xpdl:NodeGraphicsInfos/xpdl:NodeGraphicsInfo/xpdl:Coordinates/@XCoordinate)+xs:decimal($lane//@Width)+$px
+  let $ly1:=xs:decimal($lane/xpdl:NodeGraphicsInfos/xpdl:NodeGraphicsInfo/xpdl:Coordinates/@YCoordinate)+$py
+  let $ly2:=xs:decimal($lane/xpdl:NodeGraphicsInfos/xpdl:NodeGraphicsInfo/xpdl:Coordinates/@YCoordinate)+xs:decimal($lane//@Height)+$py
+  where ($x>$lx1 and $x<$lx2 and $y>$ly1 and $y<$ly2)
+  return $lane/ancestor::xpdl:Pool
+};
+
+(:~
  : Diese Funktion liefert das Label eines eingehenden Sequenzflusses in einem XPDL
  : @param $package XPDL
  : @param $predecessor-id ID des Vorgängers

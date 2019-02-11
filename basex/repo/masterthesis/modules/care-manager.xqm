@@ -55,6 +55,7 @@ declare function cm:xpdl-to-care($pkg, $pkg-version, $timestamp) {
 :)
 declare function cm:xpdl-to-care-act($pkg, $pkg-version, $act, $i) {
   let $lanes := $pkg/xpdl:Pools/xpdl:Pool/xpdl:Lanes/xpdl:Lane 
+  let $pools := $pkg/xpdl:Pools/xpdl:Pool
   let $dataObjects := $pkg/xpdl:WorkflowProcesses/xpdl:WorkflowProcess/xpdl:DataObjects/xpdl:DataObject
   let $dataStores := $pkg/xpdl:DataStores/xpdl:DataStore
   let $dataStoreReferences := $pkg/xpdl:WorkflowProcesses/xpdl:WorkflowProcess/xpdl:DataStoreReferences/xpdl:DataStoreReference
@@ -66,6 +67,7 @@ declare function cm:xpdl-to-care-act($pkg, $pkg-version, $act, $i) {
     <ContextInformation ActivityId="{$act/@Id}">
       <Name Id="{$act/@Id}NAME">{$act/@Name/string()}</Name>
       <Performer Id="{$act/@Id}PERF">{$lanes[@Id=$act/xpdl:Performers/xpdl:Performer]/@Name/string()}</Performer>
+      <Participant Id="{$act/@Id}PART">{$pools[@Id=$act/xpdl:Participants/xpdl:Participant]/@Name/string()}</Participant>
       <TaskType Id="{$act/@Id}TYPE">{cm:get-tasktype-name(if($taskType) then $taskType else "None")}</TaskType>
       <DataObjectInputs>
         {for $doInput in $act/xpdl:DataObjectInput return <DataObjectInput Id="{$doInput/@Id}">{$dataObjects[@Id/string()=$doInput/@Id/string()]/@Name/string()}</DataObjectInput>}

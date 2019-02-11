@@ -1,6 +1,6 @@
 (:~
  : Dieses Modul enthält alle Funktionen, welche es ermöglichen mit einer bizAgi bpm Datei umzugehen.
- : @author Florian Eckey
+ : @author Florian Eckey, Katharina Großer
  : @version 1.1
  :)
 module namespace bizagi = 'masterthesis/modules/bizagi-manager';
@@ -57,6 +57,21 @@ declare function bizagi:addLanesAsPerformers($package as element(xpdl:Package)) 
 };
 
 (:~
+ : Diese Funktion fügt dem XPDL den Pool der Aktivitäten als Participant ein. Dies ist nötig, da die Pools dem XPDL nicht direkt entnommen werden können.
+ : @param $package XPDL
+ : @return XDPL (modifiziert)
+ :)
+declare function bizagi:addPoolsAsParticipants($package as element(xpdl:Package)) as element(xpdl:Package){
+      copy $newPackage:=$package
+      modify 
+        for $activity in $newPackage//xpdl:Activity
+          let $pool :=xm:getPoolForActivity($newPackage,$activity) return
+          if($activity/xpdl:Participants) then insert node <Participant xmlns="http://www.wfmc.org/2009/XPDL2.2">{ $pool/@Id/string() }</Participant> into $activity/xpdl:Participants
+          else insert node <Participants xmlns="http://www.wfmc.org/2009/XPDL2.2"><Participant>{ $pool/@Id/string() }</Participant></Participants> into $activity
+      return $newPackage
+};
+
+(:~
  : Diese Funktion fügt dem XPDL die ExtendedAttributes aus BizAgi hinzu. Dies ist nötig, da die Lanes dem XPDL nicht direkt entnommen werden können.
  : @param $package XPDL
  : @param $extended-info XML der externen Attribut-Deklaration (von BizAgi)
@@ -85,6 +100,7 @@ declare function bizagi:modify-xpdl($package as element(xpdl:Package)) as elemen
   let $modified := bizagi:deleteDuplicates($package)
   let $modified := bizagi:addInOuts($modified)
   let $modified := bizagi:addLanesAsPerformers($modified)
+  let $modified := bizagi:addPoolsAsParticipants($modified)
   return $modified
 };
 

@@ -1,0 +1,12 @@
+
+*.un~
+
+basex/\.basexgui
+
+basex/bin/basexhttp
+
+*.log
+
+*.basex
+
+*.txt~

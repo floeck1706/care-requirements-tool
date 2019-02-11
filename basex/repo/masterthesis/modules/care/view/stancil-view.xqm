@@ -1,7 +1,7 @@
 (:~
  : Dieses Modul stellt Funktionen für die Generigung des HTML Inhalts für die Ansicht der Eingabe von Anforderungen in die SOPHIST Satzschablone für eine Aktivität zur Verfügung
  : @version 1.1
- : @author Florian Eckey
+ : @author Florian Eckey, Katharina Großer
 :)
 module namespace view="masterthesis/modules/care/view/stancil-view";
 
@@ -92,19 +92,19 @@ declare function view:stancil-form($current-package,$compare-package, $ref-id, $
           
           {ui:autocomplete-search-bar(
                   rsugg:possible-systems($current-package,$care-ref)
-                  ,<input type="text" id="system" name="system" placeholder="&#60;System&#62;" class="re-tooltip re-input re-main" style="width:6%;min-width:150px" data-content="{view:info-tooltip('system')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:System/string() else 'System'}"/>)}
+                  ,<input type="text" id="system" name="system" placeholder="&#60;System&#62;" class="re-tooltip re-input re-main" style="width:6%;min-width:150px" data-content="{view:info-tooltip('system')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:System/string() else rsugg:possible-systems($current-package,$care-ref)[1]/@Name}"/>)}
           
           {ui:autocomplete-search-bar(
               rsugg:possible-liabilities()
-              ,<input type="text" id="liability" name="liability" placeholder="&#60;Verbindlichkeit&#62;" class="re-tooltip re-input re-main" style="width:6%;min-width:100px" data-content="{view:info-tooltip('liability')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Liability/string() else 'muss'}"/>)}
+              ,<input type="text" id="liability" name="liability" placeholder="&#60;Verbindlichkeit&#62;" class="re-tooltip re-input re-main" style="width:6%;min-width:100px" data-content="{view:info-tooltip('liability')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Liability/string() else rsugg:possible-liabilities()[1]/@Name}"/>)}
               
-          {ui:autocomplete-search-bar(
+          {ui:autocomplete-search-bar( (: {if($requirement and $requirement/c:Actor/string()) then '' else if($care-ref/c:ContextInformation/c:TaskType=('Systemaktivität')) then 'display:none' else ''}:)
                   rsugg:possible-actors($care-ref)
-                  ,<input type="text" id="actor" name="actor" tabindex="4" placeholder="&#60;Akteur&#62;" class="re-tooltip re-input re-main" style="width:15%;min-width:200px" data-content="{view:info-tooltip('actor')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Actor/string() else ()}"/>)}
+                  ,<input type="text" id="actor" name="actor" tabindex="4" placeholder="&#60;Akteur&#62;" class="re-tooltip re-input re-main" style="width:15%;min-width:200px;" data-content="{view:info-tooltip('actor')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Actor/string() else  rsugg:possible-actors($care-ref)[1]/@Name}"/>)}
           
           {ui:autocomplete-search-bar(
-                  rsugg:possible-functionalities()
-                  ,<input type="text" id="functionality" name="functionality" tabindex="5" placeholder="&#60;Art der Funktionalität&#62;" class="re-tooltip re-input re-main" style="width:15%;min-width:250px" data-content="{view:info-tooltip('functionality')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Functionality/string() else ()}"/>)}
+                  rsugg:possible-functionalities($care-ref)
+                  ,<input type="text" id="functionality" name="functionality" tabindex="5" placeholder="&#60;Art der Funktionalität&#62;" class="re-tooltip re-input re-main" style="width:15%;min-width:250px" data-content="{view:info-tooltip('functionality')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Functionality/string() else rsugg:possible-functionalities($care-ref)[1]/@Name}"/>)}
           
           {ui:autocomplete-search-bar(
                   rsugg:possible-objectdetails1($current-package,$care-ref)
@@ -143,7 +143,7 @@ declare function view:stancil-form($current-package,$compare-package, $ref-id, $
 };
 
 (:~
- : Diese Funktion generiert den HTML Inhalt für das Panel, in dem die Eingabefelder für den Funktions-Master-Master der SOPHSIT Schablone dargestellt sind
+ : Diese Funktion generiert den HTML Inhalt für das Panel, in dem die Validierung für den Funktions-Master-Master der SOPHSIT Schablone dargestellt sind
  : @param $message Die Validierungs-Nachricht, die angezeigt werden soll
  : @param $type Der Typ der Fehlermeldung (wird nicht verwendet)
  : @return HTML-Panel für die Validierung der Eingabe in die Schablone

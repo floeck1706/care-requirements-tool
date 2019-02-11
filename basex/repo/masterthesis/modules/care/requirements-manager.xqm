@@ -15,7 +15,7 @@ declare namespace c ="care";
  : @param $pkg-version-id Version des Paketes
  : @param $ref-id ID der Aktivität
  : @param $condition Bedingung der Anforderung als XML
- : @param $system System-Baustein der anforderung
+ : @param $system System-Baustein der Anforderung
  : @param $liability Priorität-Baustein der Anforderung
  : @param $actor Akteur-Baustein der Anforderung
  : @param $functionality Art der Funktionalität-Baustein der Anforderung

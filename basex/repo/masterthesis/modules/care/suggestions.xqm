@@ -1,6 +1,6 @@
 (:~
  : Dieses Modul stellt alle Funktionen bereit, die für die Generierung der Vorschläge in die SOPHIST Satzschablone zuständig sind.
- : @author Florian Eckey
+ : @author Florian Eckey, Katharina Großer
  : @version 1.1
 :)
 module namespace rsugg ="masterthesis/modules/care/suggestions";
@@ -61,7 +61,7 @@ declare function rsugg:possible-transitions($act) {
 :)
 declare function rsugg:possible-actors($act) {
   let $laneEntry := <entry Id="{random:uuid()}" Name="{$act/c:ContextInformation/c:Performer/string()}" Type="Lane" Icon="glyphicon glyphicon-user"/>
-  return $laneEntry
+  return if ($act/c:ContextInformation/c:TaskType=("Benutzeraktivität")) then $laneEntry else <entry Id="{random:uuid()}" Name="" Type="Lane" Icon="glyphicon glyphicon-remove"/> | $laneEntry
 };
 
 (:~
@@ -71,8 +71,15 @@ declare function rsugg:possible-actors($act) {
  : @return Vorschläge als XML
 :)
 declare function rsugg:possible-systems($care-pkg,$reference) {
+   if ($reference/c:ContextInformation/c:TaskType=("Systemaktivität")) then
+   let $laneEntry := <entry Id="{random:uuid()}" Name="{$reference/c:ContextInformation/c:Performer/string()}" Type="Lane" Icon="glyphicon glyphicon-user"/>
+  let $pool-system := <entry Id="{random:uuid()}" Name="{$reference/c:ContextInformation/c:Participant/string()}" Type="Pool" Icon="glyphicon glyphicon-cog"/>
   let $other-systems := for $system in distinct-values($care-pkg//c:System) return <entry Id="{random:uuid()}" Name="{$system}" Type="Re ReSystem ReFavorite" Icon="glyphicon glyphicon-star"/>
-  return $other-systems
+  return  $laneEntry | $pool-system | $other-systems
+  else
+  let $pool-system := <entry Id="{random:uuid()}" Name="{$reference/c:ContextInformation/c:Participant/string()}" Type="Lane" Icon="glyphicon glyphicon-home"/>
+  let $other-systems := for $system in distinct-values($care-pkg//c:System) return <entry Id="{random:uuid()}" Name="{$system}" Type="Re ReSystem ReFavorite" Icon="glyphicon glyphicon-star"/>
+  return $pool-system | $other-systems
 };
 
 (:~
@@ -86,7 +93,7 @@ declare function rsugg:possible-conditions($act) {
 };
 
 (:~
- : Diese Funktion generiert die Vorschläge für das Objekt der Schablone
+ : Diese Funktion generiert die Vorschläge für die Verbindlichkeit der Schablone
  : @return Vorschläge als XML
 :)
 declare function rsugg:possible-liabilities() {
@@ -98,12 +105,45 @@ declare function rsugg:possible-liabilities() {
 
 (:~
  : Diese Funktion generiert die Vorschläge für die Art der Funktionalität der Schablone
+ : @param $act Aktivität
  : @return Vorschläge als XML
 :)
-declare function rsugg:possible-functionalities() {
-  let $other-functionalities := (<entry Id="{random:uuid()}" Name="die Möglichkeit bieten" Type="Re ReFunctionality" />
-                            ,<entry Id="{random:uuid()}" Name="fähig sein" Type="Re ReFunctionality"/>
-                            ,<entry Id="{random:uuid()}" Name="" Type="Re ReFunctionality"/>)
+declare function rsugg:possible-functionalities($act) {
+  
+  let $other-functionalities := 
+  
+  if ($act/c:ContextInformation/c:TaskType=("Systemaktivität") or $act/c:ContextInformation/c:TaskType=("Sendende Aktivität")) then
+  
+  (<entry Id="{random:uuid()}" Name="" Type="Re ReFunctionality" Icon="glyphicon glyphicon-cog"/>,
+  <entry Id="{random:uuid()}" Name="die Möglichkeit bieten" Type="Re ReFunctionality" Icon="glyphicon glyphicon-user"/>
+                            ,<entry Id="{random:uuid()}" Name="fähig sein" Type="Re ReFunctionality" Icon="glyphicon glyphicon-link"/>)
+                            
+  else if ($act/c:ContextInformation/c:TaskType=("Benutzeraktivität")) then
+  
+   (<entry Id="{random:uuid()}" Name="die Möglichkeit bieten" Type="Re ReFunctionality" Icon="glyphicon glyphicon-user"/>
+                            ,<entry Id="{random:uuid()}" Name="fähig sein" Type="Re ReFunctionality" Icon="glyphicon glyphicon-link"/>
+                            ,<entry Id="{random:uuid()}" Name="" Type="Re ReFunctionality" Icon="glyphicon glyphicon-cog"/>)
+                            
+  else if ($act/c:ContextInformation/c:TaskType=("Skript Aktivität") or $act/c:ContextInformation/c:TaskType=("Aktivität mit Geschäftsentscheidung") or $act/c:ContextInformation/c:TaskType=("Empfangende Aktivität")) then
+  
+   (<entry Id="{random:uuid()}" Name="fähig sein" Type="Re ReFunctionality" Icon="glyphicon glyphicon-link"/>
+                            ,<entry Id="{random:uuid()}" Name="die Möglichkeit bieten" Type="Re ReFunctionality" Icon="glyphicon glyphicon-user"/>
+                            ,<entry Id="{random:uuid()}" Name="" Type="Re ReFunctionality" Icon="glyphicon glyphicon-cog"/>)
+                            
+  else if ($act/c:ContextInformation/c:TaskType=("Manuelle Aktivität")) then
+  
+   (<entry Id="{random:uuid()}" Name="" Type="Re ReFunctionality" Icon="glyphicon glyphicon-user"/>,
+   <entry Id="{random:uuid()}" Name="fähig sein" Type="Re ReFunctionality" Icon="glyphicon glyphicon-link"/>
+                            ,<entry Id="{random:uuid()}" Name="die Möglichkeit bieten" Type="Re ReFunctionality" Icon="glyphicon glyphicon-user"/>
+                            ,<entry Id="{random:uuid()}" Name="" Type="Re ReFunctionality" Icon="glyphicon glyphicon-cog"/>)
+                            
+  else
+  
+  (<entry Id="{random:uuid()}" Name="" Type="Re ReFunctionality" Icon="glyphicon glyphicon-cog"/>,
+  <entry Id="{random:uuid()}" Name="die Möglichkeit bieten" Type="Re ReFunctionality" Icon="glyphicon glyphicon-user"/>
+                            ,<entry Id="{random:uuid()}" Name="fähig sein" Type="Re ReFunctionality" Icon="glyphicon glyphicon-link"/>,
+                          <entry Id="{random:uuid()}" Name="" Type="Re ReFunctionality" Icon="glyphicon glyphicon-user"/>)
+                            
   return $other-functionalities
 };
 

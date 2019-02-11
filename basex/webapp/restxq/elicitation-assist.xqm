@@ -28,7 +28,7 @@ declare namespace c="care";
 
 
 (:~
- : Diese Funktion erzeugt den HTML-Inhalt der Assstenzansicht. Es werden die einzelnen Panels zusammengesetzt.  Der Inhalt wird in das UI-Template eingebunden.
+ : Diese Funktion erzeugt den HTML-Inhalt der Assistenzansicht. Es werden die einzelnen Panels zusammengesetzt.  Der Inhalt wird in das UI-Template eingebunden.
  : @param $pkg-id Die ID des Paketes, zu der die Aktivitätenliste angezeigt wird
  : @param $pkg-version Versions-ID des Paketes, zu der die Aktivitätenliste angezeigt wird
  : @param $ref-id Die ID der Aktivität, zu der der Assistent angezeigt wird
