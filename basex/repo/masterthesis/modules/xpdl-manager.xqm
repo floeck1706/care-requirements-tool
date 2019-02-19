@@ -1,6 +1,6 @@
 (:~
  : Dieses Modul stellt Informationen zur Verarbeitung von XPDL Dokumenten bereit. Diese werden für die Generierung des CARE-Formats benötigt.
- : @author Florian Eckey
+ : @author Florian Eckey, Katharina Großer
  : @version 1.0
  :)
 module namespace xm = 'masterthesis/modules/xpdl-manager';

@@ -70,6 +70,13 @@ declare function view:stancil-form-condition($current-package,$ref-id, $requirem
     
     <input type="text" id="verb" class="re-tooltip re-input re-condition" style="width:5%;min-width:100px" disabled="true" value="ist"/>
     <span>,</span>
+  </span>,
+  <span id="span-condition-timespan" style="{if($requirement and $requirement/c:Condition/@Type='timespan') then '' else 'display:none'}">
+    
+    <input type="text" id="conjunction" disabled="true" class="re-tooltip re-input re-condition re-disabled" style="width:5%;min-width:150px" value="Solange"/>
+    
+    
+    <span>,</span>
   </span>)
 };
 
@@ -98,13 +105,13 @@ declare function view:stancil-form($current-package,$compare-package, $ref-id, $
               rsugg:possible-liabilities()
               ,<input type="text" id="liability" name="liability" placeholder="&#60;Verbindlichkeit&#62;" class="re-tooltip re-input re-main" style="width:6%;min-width:100px" data-content="{view:info-tooltip('liability')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Liability/string() else rsugg:possible-liabilities()[1]/@Name}"/>)}
               
-          {ui:autocomplete-search-bar( (: {if($requirement and $requirement/c:Actor/string()) then '' else if($care-ref/c:ContextInformation/c:TaskType=('Systemaktivität')) then 'display:none' else ''}:)
-                  rsugg:possible-actors($care-ref)
-                  ,<input type="text" id="actor" name="actor" tabindex="4" placeholder="&#60;Akteur&#62;" class="re-tooltip re-input re-main" style="width:15%;min-width:200px;" data-content="{view:info-tooltip('actor')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Actor/string() else  rsugg:possible-actors($care-ref)[1]/@Name}"/>)}
-          
           {ui:autocomplete-search-bar(
+                  rsugg:possible-actors($care-ref)
+                  ,<input type="text" id="actor" name="actor" tabindex="4" placeholder="{if($care-ref/c:ContextInformation/c:TaskType=('Benutzeraktivität')) then '&#60;Akteur&#62;' else '(kein Akteur)'}" class="re-tooltip re-input re-actor {if($care-ref/c:ContextInformation/c:TaskType=('Benutzeraktivität')) then ' re-main' else ''}" style="width:15%;min-width:200px; {if($care-ref/c:ContextInformation/c:TaskType=('Benutzeraktivität')) then '' else 'display:none;'}" data-content="{view:info-tooltip('actor')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Actor/string() else rsugg:possible-actors($care-ref)[1]/@Name}"/>)}
+          
+          {ui:autocomplete-search-bar( 
                   rsugg:possible-functionalities($care-ref)
-                  ,<input type="text" id="functionality" name="functionality" tabindex="5" placeholder="&#60;Art der Funktionalität&#62;" class="re-tooltip re-input re-main" style="width:15%;min-width:250px" data-content="{view:info-tooltip('functionality')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Functionality/string() else rsugg:possible-functionalities($care-ref)[1]/@Name}"/>)}
+                  ,<input type="text" id="functionality" name="functionality" tabindex="5" placeholder="{if($care-ref/c:ContextInformation/c:TaskType=('Systemaktivität')) then '(autonome Systemaktivität)' else '&#60;Art der Funktionalität&#62;'}" class="re-tooltip re-input {if($care-ref/c:ContextInformation/c:TaskType=('Systemaktivität')) then '' else ' re-main'}" style="width:15%;min-width:250px" data-content="{view:info-tooltip('functionality')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Functionality/string() else rsugg:possible-functionalities($care-ref)[1]/@Name}" onfocus="if($.trim($('#functionality').val())=='die Möglichkeit bieten')$('#actor').show().focus().val('{rsugg:possible-actors($care-ref)[2]/@Name}');else $('#actor').hide().focus().val('');"/>)}
           
           {ui:autocomplete-search-bar(
                   rsugg:possible-objectdetails1($current-package,$care-ref)
@@ -112,7 +119,7 @@ declare function view:stancil-form($current-package,$compare-package, $ref-id, $
                   
           {ui:autocomplete-search-bar(
                   rsugg:possible-objects($care-ref)
-                  ,<input type="text" id="object" name="object" tabindex="6" placeholder="&#60;Objekt&#62;" class="re-tooltip re-input re-main" style="width:28%;min-width:200px" data-content="{view:info-tooltip('object')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Object/string() else ()}"/>)}
+                  ,<input type="text" id="object" name="object" tabindex="6" placeholder="&#60;Objekt&#62;" class="re-tooltip re-input re-main" style="width:28%;min-width:200px" data-content="{view:info-tooltip('object')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Object/string() else rsugg:possible-objects($care-ref)[1]/@Name}"/>)}
                   
 
           
@@ -128,7 +135,7 @@ declare function view:stancil-form($current-package,$compare-package, $ref-id, $
                   
           {ui:autocomplete-search-bar(
                   rsugg:possible-processverbs($current-package,$care-ref)
-                  ,<input type="text" id="processverb" name="processverb" tabindex="9" placeholder="&#60;Prozesswort&#62;" class="re-tooltip re-input re-main" style="width:20%" data-content="{view:info-tooltip('processverb')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:ProcessVerb/string() else ()}"/>)}
+                  ,<input type="text" id="processverb" name="processverb" tabindex="9" placeholder="&#60;Prozesswort&#62;" class="re-tooltip re-input re-main" style="width:20%" data-content="{view:info-tooltip('processverb')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:ProcessVerb/string() else rsugg:possible-processverbs($current-package,$care-ref)[1]/@Name}"/>)}
           
         {view:validation-div("Bitte füllen Sie die Schablone vollständig und korrekt aus.", "error")}  
         
@@ -156,20 +163,20 @@ declare function view:validation-div($message, $type) {
 
 (:~
  : Diese Funktion generiert den HTML Inhalt ein Tooltip, welches über jedem Baustein der Schablone angezeigt wird, in dem sich zusätzliche Informationen zu dem Baustein befinden
- : @param $element Art des Schablonen-Bausteins, zui dem die Informationen angezeigt werden sollen
+ : @param $element Art des Schablonen-Bausteins, zu dem die Informationen angezeigt werden sollen
  : @return HTML-Tooltip
  :)
 declare function view:info-tooltip($element as xs:string) {
   let $content :=
     switch($element)
       case "system" return 
-        <div>Tragen Sie das System ein, für das die Anforderung erhoben wird. Ist ggf. ein <a id="condition-link" style="cursor:pointer" onclick="$('#span-condition-event').toggle();switchSystemAndObject();$('.re-input#condition').focus().val('')">Bedingungssatz</a> (Strg + b) erforderlich?</div>
+        <div>Tragen Sie das System ein, für das die Anforderung erhoben wird. Ist ggf. ein Bedingungssatz erforderlich? Ein auslösendes <a id="condition-link" style="cursor:pointer" onclick="$('#span-condition-event').toggle();switchSystemAndObject();$('.re-input#condition').focus().val('')">Ereignis</a> (Strg + b) oder eine <a id="condition-logic-link" style="cursor:pointer" onclick="$('#span-condition-logic').toggle();switchSystemAndObject();$('.re-input#condition').focus().val('')">logische Bedingung</a>?</div>
         
       case "liability" return <div>Tragen Sie eine Verbindlichkeit der Anforderung ein. Wie wichtig ist diese für das Zielsystem?</div>   
       
-      case "actor" return <div>Tragen Sie eine Zuständigkeit der Anforderung ein. Diese lässt sich aus der Rolle der Aktivität herleiten.</div>  
+      case "actor" return <div>Falls es sich um eine Benutzeraktivität handelt (&quot;die Möglichkeit bieten&quot;), tragen Sie einen zuständigen Akteur für die Anforderung ein. Dieser lässt sich aus der Rolle der Aktivität herleiten.</div>  
       
-      case "functionality" return <div>Tragen Sie eine Funktionalität. Wird vom System eine Aktion automatisch ausgeführt (leer lassen) oder agiert ein Akteur ('die Möglichkeit bieten')? Dies lässt sich aus dem Typ der Aktivität herleiten.</div> 
+      case "functionality" return <div>Tragen Sie eine Funktionalität. Wird vom System eine Aktion automatisch ausgeführt (leer lassen) oder agiert ein Akteur (&quot;die Möglichkeit bieten&quot;)? Dies lässt sich aus dem Typ der Aktivität herleiten.</div> 
       
       case "object" return <div>Tragen Sie das Objekt ein, um das es in der Anforderung geht. Dies lässt sich aus den Dokumenten oder Systemen der Aktivität herleiten. Können Sie das Objekt <span id="object-in-tooltip" style="color:green"></span> präzisieren? Fragen Sie nach <a id="object-detail1-link" onclick="$('#object-detail1').toggle().focus().val('');$('#object-detail1-in-tooltip').html($('#object').val())">Welches? Welche? Welcher?</a> oder <a id="object-detail2-link" onclick="$('#object-detail2').toggle().focus().val('');$('#objcet-detail2-in-tooltip').html($('#object').val())">Wessen?</a> (Strg + Leer)</div> 
       

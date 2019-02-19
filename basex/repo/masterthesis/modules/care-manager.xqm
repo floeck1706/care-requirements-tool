@@ -1,7 +1,7 @@
 (:~ 
  : Diese Modul kapselt die Datenbank "Requirements".
  :
- : @author   Florian Eckey
+ : @author   Florian Eckey, Katharina Großer
  : @version  1.0
  :)
 module namespace cm ="masterthesis/modules/care-manager";
@@ -70,16 +70,16 @@ declare function cm:xpdl-to-care-act($pkg, $pkg-version, $act, $i) {
       <Participant Id="{$act/@Id}PART">{$pools[@Id=$act/xpdl:Participants/xpdl:Participant]/@Name/string()}</Participant>
       <TaskType Id="{$act/@Id}TYPE">{cm:get-tasktype-name(if($taskType) then $taskType else "None")}</TaskType>
       <DataObjectInputs>
-        {for $doInput in $act/xpdl:DataObjectInput return <DataObjectInput Id="{$doInput/@Id}">{$dataObjects[@Id/string()=$doInput/@Id/string()]/@Name/string()}</DataObjectInput>}
+        {for $doInput in $act/xpdl:DataObjectInput return <DataObjectInput Id="{$doInput/@Id}" State="{$dataObjects[@Id/string()=$doInput/@Id/string()]/@State}">{$dataObjects[@Id/string()=$doInput/@Id/string()]/@Name/string()}</DataObjectInput>}
       </DataObjectInputs>
       <DataObjectOutputs>
-        {for $doOutput in $act/xpdl:DataObjectOutput return <DataObjectOutput Id="{$doOutput/@Id}">{$dataObjects[@Id=$doOutput/@Id]/@Name/string()}</DataObjectOutput>}
+        {for $doOutput in $act/xpdl:DataObjectOutput return <DataObjectOutput Id="{$doOutput/@Id}" State="{$dataObjects[@Id=$doOutput/@Id]/@State}">{$dataObjects[@Id=$doOutput/@Id]/@Name/string()}</DataObjectOutput>}
       </DataObjectOutputs>
       <DataStoreInputs>
-        {for $dsInput in $act/xpdl:DataStoreInput return <DataStoreInput Id="{$dsInput/@Id}">{$dataStores[@Id=$dsInput/@Id]/@Name/string()}</DataStoreInput>}
+        {for $dsInput in $act/xpdl:DataStoreInput return <DataStoreInput Id="{$dsInput/@Id}" State="{$dsInput/@State}">{$dataStores[@Id=$dsInput/@Id]/@Name/string()}</DataStoreInput>}
       </DataStoreInputs>
       <DataStoreOutputs>
-        {for $dsOutput in $act/xpdl:DataStoreOutput return <DataStoreOutput Id="{$dsOutput/@Id}">{$dataStores[@Id=$dsOutput/@Id]/@Name/string()}</DataStoreOutput>}
+        {for $dsOutput in $act/xpdl:DataStoreOutput return <DataStoreOutput Id="{$dsOutput/@Id}" State="{$dsOutput/@State}">{$dataStores[@Id=$dsOutput/@Id]/@Name/string()}</DataStoreOutput>}
       </DataStoreOutputs>
       <Predecessors>
          {for $activity in xm:getPredecessorActivities($pkg,$act/@Id) return <Predecessor Id="{$activity/@Id}" Type="{xm:getActivityType($pkg, $activity/@Id)}" Performer="{xm:getLaneForActivity($pkg,$activity)/@Name}" Transition="{xm:get-transition-label-from-predecessor($pkg,$activity/@Id,$act/@Id)}">{$activity/@Name/string()}</Predecessor>}
