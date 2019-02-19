@@ -123,6 +123,7 @@ declare function bizagi:addInOuts($pack as element(xpdl:Package)) {
   let $wfp := $pack/xpdl:WorkflowProcesses/xpdl:WorkflowProcess
   let $DataStoreReferences := $wfp/xpdl:DataStoreReferences/xpdl:DataStoreReference
   let $storeIds := distinct-values($DataStoreReferences/@Id)
+  let $dataObjs := $wfp/xpdl:DataObjects/xpdl:DataObject
   let $dataObjIds := $wfp/xpdl:DataObjects/xpdl:DataObject/@Id
   let $acts := $wfp/xpdl:Activities/xpdl:Activity
   let $assocs:= $pack/xpdl:Associations/xpdl:Association
@@ -135,9 +136,9 @@ declare function bizagi:addInOuts($pack as element(xpdl:Package)) {
        ,for $dataOutput in $assocs[@Source=$acts/@Id][@Target=$storeIds]
          return insert node <DataStoreOutput Id="{$DataStoreReferences[@Id=$dataOutput/@Target]/@DataStoreRef}"/> as last into $pack/xpdl:WorkflowProcesses/xpdl:WorkflowProcess/xpdl:Activities/xpdl:Activity[@Id=$dataOutput/@Source]
        ,for $dataInput in $assocs[@Target=$acts/@Id][@Source=$dataObjIds]
-         return insert node <DataObjectInput Id="{$dataInput/@Source}"/> as last into $pack/xpdl:WorkflowProcesses/xpdl:WorkflowProcess/xpdl:Activities/xpdl:Activity[@Id=$dataInput/@Target]
+         return insert node <DataObjectInput Id="{$dataInput/@Source}" State="{$dataObjs[@Id=$dataInput/@Source]/@State}"/> as last into $pack/xpdl:WorkflowProcesses/xpdl:WorkflowProcess/xpdl:Activities/xpdl:Activity[@Id=$dataInput/@Target]
        ,for $dataOutput in $assocs[@Source=$acts/@Id][@Target=$dataObjIds]
-         return insert node <DataObjectOutput Id="{$dataOutput/@Target}"/> as last into $pack/xpdl:WorkflowProcesses/xpdl:WorkflowProcess/xpdl:Activities/xpdl:Activity[@Id=$dataOutput/@Source]     
+         return insert node <DataObjectOutput Id="{$dataOutput/@Target}" State="{$dataObjs[@Id=$dataOutput/@Target]/@State}"/> as last into $pack/xpdl:WorkflowProcesses/xpdl:WorkflowProcess/xpdl:Activities/xpdl:Activity[@Id=$dataOutput/@Source]     
       ) 
     return $pack
  return $pack
