@@ -95,6 +95,18 @@ declare function view:stancil-form($current-package,$compare-package, $ref-id, $
     <div id="stancil" class="panel-box stancil-panel">
       <form id="stancil-form" class="form" action="{$ui:prefix}/restancil/save/{$current-package/@Id}/{$current-package/@VersionId}/{$ref-id}?{if($req-id) then 'req-id='|| $requirement/@Id else ()}" method="post" autocomplete="off">
       
+      <input type="hidden"  class="re-input" id="template-type" name="template-type" value=""/>
+      
+      
+      <div class="pull-right">
+        <ul class="pull-right" style="list-style:none;">
+          <li><a id="" onclick="" tabindex=""><i class="glyphicon glyphicon-wrench"/></a></li>
+          <li><a onclick="" tabindex=""><i class="glyphicon glyphicon-globe"/></a></li>
+          <li><a onclick="" tabindex=""><i class="glyphicon glyphicon-dashboard"/></a></li>
+          <li><a onclick="" tabindex=""><i class="glyphicon glyphicon-briefcase"/></a></li>
+        </ul>
+       </div>
+      
           {view:stancil-form-condition($current-package,$ref-id,$requirement)}
           
           {ui:autocomplete-search-bar(
