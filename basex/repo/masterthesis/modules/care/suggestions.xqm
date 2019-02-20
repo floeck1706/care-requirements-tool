@@ -34,7 +34,7 @@ declare function rsugg:possible-objects($act) {
 };
 
 (:~
- : Diese Funktion generiert die Vorschläge für das Ereignis der Ereignus-Bedingung der Schablone
+ : Diese Funktion generiert die Vorschläge für das Ereignis der Ereignis-Bedingung der Schablone
  : @param $act Aktivität
  : @return Vorschläge als XML
 :)
@@ -51,6 +51,64 @@ declare function rsugg:possible-events($act) {
 declare function rsugg:possible-transitions($act) {
   let $transitions := for $actor in distinct-values($act/c:ContextInformation/c:Predecessors/c:Predecessor[@Type="ExclusiveGateway"]/@Transition/string()) return <entry Id="{random:uuid()}" Name="{$actor}" Type="Re ReActor ReFavorite" Icon="glyphicon glyphicon-star"/>
   return $transitions
+};
+
+(:~
+ : Diese Funktion generiert die Vorschläge für den Akteur der Bedingungs-Schablone
+ : @param $care-pkg Paket
+ : @param $act Aktivität
+ : @return Vorschläge als XML
+:)
+declare function rsugg:possible-eventactors($care-pkg,$act) {
+  let $pre := $care-pkg/c:Activity[@Id=$act/c:ContextInformation/c:Predecessors/c:Predecessor/@Id/string()]
+  return if ($pre/c:ContextInformation/c:TaskType=("Benutzeraktivität")) then rsugg:possible-actors($pre) else
+  if ($pre/c:ContextInformation/c:TaskType=("Systemaktivität")) then rsugg:possible-systems($care-pkg,$pre) else 
+  <entry Id="{random:uuid()}" Name="{$pre/c:ContextInformation/c:Performer/string()}" Type="Lane" Icon="glyphicon glyphicon-user"/>
+  | <entry Id="{random:uuid()}" Name="{$pre/c:ContextInformation/c:Participant/string()}" Type="Lane" Icon="glyphicon glyphicon-cog"/>
+};
+
+(:~
+ : Diese Funktion generiert die Vorschläge für das Objekt der Bedingungs-Schablone
+ : @param $care-pkg Paket
+ : @param $act Aktivität
+ : @return Vorschläge als XML
+:)
+declare function rsugg:possible-eventobjects($care-pkg,$act) {
+  let $cadidates := for $pre in $care-pkg/c:Activity[@Id=$act/c:ContextInformation/c:Predecessors/c:Predecessor/@Id/string()]
+  return (:if event then (alles? oder erstes von Hinten?) vor letztem Leerzeichen Name="{tokenize($reference/c:ContextInformation/c:Name/string()," ")[last()]}" else:)
+  if($pre/@Type=("StartEvent"(:,"EndEvent" ... kann nie expliziter Vorgänger sein:),"IntermediateEvent")) then 
+  <entry Id="{random:uuid()}" Name="{tokenize($pre/c:ContextInformation/c:Name/string()," ")[last()-1]}" Type="Re ReObject ReFavorite" Icon="glyphicon glyphicon-tag"/> else rsugg:possible-objects($pre)
+  return $cadidates
+};
+
+(:~
+ : Diese Funktion generiert die Vorschläge für Funktionen der Bedingungs-Schablone
+ : @param $care-pkg Paket
+ : @param $act Aktivität
+ : @return Vorschläge als XML
+:)
+declare function rsugg:possible-functions($care-pkg,$act) {
+  let $cadidates := for $pre in $care-pkg/c:Activity[@Id=$act/c:ContextInformation/c:Predecessors/c:Predecessor/@Id/string()]
+  return 
+  if($pre/@Type=("ExclusiveGateway","InclusiveGateway","ParallelGateway")) then ()
+  else
+  <entry Id="{random:uuid()}" Name="{$pre/c:ContextInformation/c:Name/string()}" Type="Re ReObject ReFavorite" Icon="glyphicon glyphicon-tag"/>
+  return $cadidates
+};
+
+(:~
+ : Diese Funktion generiert die Vorschläge für das Prozesswort der Bedingungs-Schablone
+ : @param $care-pkg Paket
+ : @param $act Aktivität
+ : @return Vorschläge als XML
+:)
+declare function rsugg:possible-condition-processverbs($care-pkg,$act) {
+  let $cadidates := for $pre in $care-pkg/c:Activity[@Id=$act/c:ContextInformation/c:Predecessors/c:Predecessor/@Id/string()]
+  return 
+  if($pre/@Type=("ExclusiveGateway","InclusiveGateway","ParallelGateway")) then ()
+  else
+  rsugg:possible-processverbs($care-pkg,$pre)
+  return $cadidates
 };
 
 (:~
@@ -77,7 +135,7 @@ declare function rsugg:possible-systems($care-pkg,$reference) {
   let $other-systems := for $system in distinct-values($care-pkg//c:System) return <entry Id="{random:uuid()}" Name="{$system}" Type="Re ReSystem ReFavorite" Icon="glyphicon glyphicon-star"/>
   return  $laneEntry | $pool-system | $other-systems
   else
-  let $pool-system := <entry Id="{random:uuid()}" Name="{$reference/c:ContextInformation/c:Participant/string()}" Type="Lane" Icon="glyphicon glyphicon-home"/>
+  let $pool-system := <entry Id="{random:uuid()}" Name="{$reference/c:ContextInformation/c:Participant/string()}" Type="Lane" Icon="glyphicon glyphicon-cog"/>
   let $other-systems := for $system in distinct-values($care-pkg//c:System) return <entry Id="{random:uuid()}" Name="{$system}" Type="Re ReSystem ReFavorite" Icon="glyphicon glyphicon-star"/>
   return $pool-system | $other-systems
 };
