@@ -1,7 +1,7 @@
 (:~
  : Dieses Modul stellt Templates für die HTML Seiten bereit.
  : @version 1.1
- : @author Florian Eckey
+ : @author Florian Eckey, Katharina Großer
  :)
 module namespace ui = 'masterthesis/modules/ui-manager';
 
@@ -94,9 +94,9 @@ declare function ui:navbar() {
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse-01">
               <ul class="nav navbar-nav navbar-left">
-                <li><a href="{$ui:prefix}/requirements-manager">Prozess-Manager</a></li>
-                <li class="pull-right"><a href="{$ui:prefix}/requirements-manager/list">Anforderungsliste</a></li>
-                <li class="pull-right"><a href="{$ui:prefix}/glossary">Glossar</a></li>
+                <li><a href="{$ui:prefix}/requirements-manager"><i class="glyphicon glyphicon-briefcase"/> Prozess-Manager</a></li>
+                <li class="pull-right"><a href="{$ui:prefix}/requirements-manager/list"><i class="glyphicon glyphicon-list"/> Anforderungsliste</a></li>
+                <li class="pull-right"><a href="{$ui:prefix}/glossary"><i class="glyphicon glyphicon-book"/> Glossar</a></li>
                </ul>
             </div>
           </nav>
