@@ -1,7 +1,7 @@
 (:~
  : Diese Modul generiert die Start-Seite der Webanwendung.
- : @version 1.0
- : @author Florian Eckey
+ : @version 1.1
+ : @author Florian Eckey, Katharina Großer
  :)
 module namespace page = 'masterthesis/modules/web-page';
 
@@ -38,12 +38,20 @@ declare
       <div class="container">
           <div class="login">
             <div class="login-screen" style="width:81.3%;font-size:1.5em">
-              Welcome to CARE ...
+              Welcome to CARE ... <!-- BeeP&#0178;R -->
                <div style="font-size:13pt">
-                Masterarbeit von <a style="color:green" href="https://www.xing.com/profile/Florian_Eckey" target="_blank">Florian Eckey</a><br/>
-                Entwicklung und Konzeption einer Software zur Konsistenzhaltung von Prozessmodellierung und textueller Anforderungsdokumentation<br/>
-                <a href="{$ui:prefix}/setup" style="color:green">>> Datenbank neu laden</a><br/>
-                <a href="{$ui:prefix}/inspection" style="color:green">>> Code Dokumentation</a>
+               System zur Unterstützung bei der Konsistenzhaltung von Prozessmodellierung und textueller Anforderungsdokumentation.
+               
+                <a href="{$ui:prefix}/requirements-manager" style="color:green">Los geht&#8216;s&#160;</a>
+               </div>
+               <div style="font-size:13pt">
+                <a href="{$ui:prefix}/setup" style="color:green">>> Datenbank löschen &#38; neu laden</a>
+               </div>
+               <div style="font-size:13pt">
+                <a href="{$ui:prefix}/inspection" style="color:green">>> Code Dokumentation</a><br/>
+                
+                Entwickelt von <a style="color:green" href="https://www.xing.com/profile/Florian_Eckey" target="_blank">Florian&#160;Eckey</a> und 
+                <a style="color:green" href="https://www.uni-koblenz-landau.de/de/koblenz/fb4/ist/rgse/staff/katharina-grosser" target="_blank">Katharina&#160;Großer</a><br/>
                 </div>
             </div>
           </div>
