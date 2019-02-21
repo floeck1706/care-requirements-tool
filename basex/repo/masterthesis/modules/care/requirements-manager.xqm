@@ -26,7 +26,7 @@ declare function re:new-condition-logic($comparison-item, $value) {
 };
 
 (:~
- : Diese Funktion generiert das HTML Element einer Bedingung nach dem EreignisMaster
+ : Diese Funktion generiert das XML Element einer Bedingung nach dem EreignisMaster
  : @param $event Ereignis-Baustein
  : @return XML der Bedingung
 :)
@@ -40,10 +40,21 @@ declare function re:new-condition-event($event) {
 };
 
 (:~
- : Diese Funktion generiert das XML Element einer Anforderung nach SOPHIST Schablone
+ : Diese Funktion generiert das XML Element einer Bedingung nach dem ZeitraumMaster
+ : @return XML der Bedingung
+:)
+declare function re:new-condition-timespan() {
+  <Condition Type="timespan">
+    <Conjunction>Solange</Conjunction>
+  </Condition>
+};
+
+(:~
+ : Diese Funktion generiert das XML Element einer Anforderung nach SOPHIST Schablone durch Aufruf der überladenen Funktion mit automatisch generierter ID
  : @param $pkg-id ID des Paketes
  : @param $pkg-version-id Version des Paketes
  : @param $ref-id ID der Aktivität
+ : @param $template-type Variante der MASTER-Schablone (Funktional, Prozess, Umgebung, Eigenschaft)
  : @param $condition Bedingung der Anforderung als XML
  : @param $system System-Baustein der anforderung
  : @param $liability Priorität-Baustein der Anforderung
@@ -57,20 +68,21 @@ declare function re:new-condition-event($event) {
  : @param $category Kategorie der Anfordeurung
  : @return XML der Anforderung
 :)
-declare function re:new-requirement($pkg-id, $pkg-version-id, $ref-id, $condition, $system, $liability, $actor, $functionality,$object-detail1, $object,$object-detail2,$processverb-detail, $processverb, $category) {
+declare function re:new-requirement($pkg-id, $pkg-version-id, $ref-id, $template-type, $condition, $system, $liability, $actor, $functionality,$object-detail1, $object,$object-detail2,$processverb-detail, $processverb, $category) {
   
-  let $new-requirement := re:new-requirement(random:uuid(),(),$pkg-id, $pkg-version-id, $ref-id, $condition, $system, $liability, $actor, $functionality, $object-detail1,$object,$object-detail2,$processverb-detail, $processverb, $category)
+  let $new-requirement := re:new-requirement(random:uuid(),(),$pkg-id, $pkg-version-id, $ref-id, $template-type, $condition, $system, $liability, $actor, $functionality, $object-detail1,$object,$object-detail2,$processverb-detail, $processverb, $category)
   
   return $new-requirement
 };
 
 (:~
- : Diese Funktion generiert das HTML Element einer Anforderung nach SOPHIST Schablone
+ : Diese Funktion generiert das XML Element einer Anforderung nach SOPHIST Schablone
  : @param $id ID der Anforderung
  : @param $nr Numer der Anforderung
  : @param $pkg-id ID des Paketes
  : @param $pkg-version-id Version des Paketes
  : @param $ref-id ID der Aktivität
+ : @param $template-type Variante der MASTER-Schablone (Funktional, Prozess, Umgebung, Eigenschaft)
  : @param $condition Bedingung der Anforderung als XML
  : @param $system System-Baustein der anforderung
  : @param $liability Priorität-Baustein der Anforderung
@@ -84,7 +96,7 @@ declare function re:new-requirement($pkg-id, $pkg-version-id, $ref-id, $conditio
  : @param $category Kategorie der Anforderung
  : @return XML der Anforderung
 :)
-declare function re:new-requirement($id, $nr , $pkg-id, $pkg-version-id, $ref-id, $condition, $system, $liability, $actor, $functionality,$object-detail1, $object,$object-detail2,$processverb-detail, $processverb, $category) {
+declare function re:new-requirement($id, $nr , $pkg-id, $pkg-version-id, $ref-id, $template-type, $condition, $system, $liability, $actor, $functionality,$object-detail1, $object,$object-detail2,$processverb-detail, $processverb, $category) {
   let $activity := cm:get($pkg-id,$pkg-version-id)/c:Activity[@Id=$ref-id]
   let $numbers := $activity/c:Requirements/c:Requirement/@Number
   let $number := if($numbers) then max($numbers) else 1 return
@@ -123,8 +135,9 @@ declare updating function re:delete-requirement($pkg-id, $pkg-version, $ref-id, 
  : @param $pkg-version Version des Paketes
  : @param $ref-id ID der Aktivität
  : @param $req-id ID der Anforderung
+ : @param $template-type Variante der MASTER-Schablone (Funktional, Prozess, Umgebung, Eigenschaft)
  : @param $condition Bedingung der Anforderung als XML
- : @param $system System-Baustein der anforderung
+ : @param $system System-Baustein der Anforderung
  : @param $liability Priorität-Baustein der Anforderung
  : @param $actor Akteur-Baustein der Anforderung
  : @param $functionality Art der Funktionalität-Baustein der Anforderung
@@ -135,11 +148,11 @@ declare updating function re:delete-requirement($pkg-id, $pkg-version, $ref-id, 
  : @param $processverb Prozesswort-Baustein
  : @param $category Kategorie der Anforderung
 :)
-declare updating function re:save($pkg-id,$pkg-version,$ref-id,$req-id,$condition,$system,$liability,$actor,$functionality,$object-detail1,$object,$object-detail2,$processverb-detail,$processverb,$category) {
+declare updating function re:save($pkg-id,$pkg-version,$ref-id,$req-id,$template-type,$condition,$system,$liability,$actor,$functionality,$object-detail1,$object,$object-detail2,$processverb-detail,$processverb,$category) {
   let $pkg := cm:get($pkg-id,$pkg-version)
   let $packages-after := cm:packages-after($pkg)
   let $packages := $packages-after | $pkg
-  let $requirement := re:new-requirement($pkg-id,$pkg-version,$ref-id,$condition,$system,$liability,$actor,$functionality,$object-detail1,$object,$object-detail2,$processverb-detail,$processverb,$category)
+  let $requirement := re:new-requirement($pkg-id,$pkg-version,$ref-id,$template-type,$condition,$system,$liability,$actor,$functionality,$object-detail1,$object,$object-detail2,$processverb-detail,$processverb,$category)
   for $package in $packages
     let $existing-requirement := $package/c:Activity[@Id=$ref-id]/c:Requirements/c:Requirement[@Id=$req-id]
     return

@@ -112,7 +112,7 @@ declare function view:stancil-form($current-package,$compare-package, $ref-id, $
     <div id="stancil" class="panel-box stancil-panel">
       <form id="stancil-form" class="form" action="{$ui:prefix}/restancil/save/{$current-package/@Id}/{$current-package/@VersionId}/{$ref-id}?{if($req-id) then 'req-id='|| $requirement/@Id else ()}" method="post" autocomplete="off">
       
-      <input type="hidden"  class="re-input" id="template-type" name="template-type" value=""/>
+      <input type="hidden"  class="re-input" id="template-type" name="template-type" value="functional"/>
       
       
       <div class="pull-right">

@@ -6,8 +6,8 @@
  : @see masterthesis/modules/care/view/stancil-view (Schabloneneingabe)
  : @see masterthesis/modules/care/view/list-view (Liste der Anforderungen, die mit der Aktivität verknüpft sind)
  : @see masterthesis/modules/care/view/info-view (Kontextinformationen der Aktivität)
- : @version 1.0
- : @author Florian Eckey
+ : @version 1.1
+ : @author Florian Eckey, Katharina Großer
  :)
 module namespace page = 'masterthesis/modules/web-page/elicitation-assist';
 
@@ -117,11 +117,12 @@ declare %restxq:path("relist/delete/{$pkg-id}/{$pkg-version}/{$ref-id}/{$req-id}
 };
 
 (:~
- : Diese Funktion stellt den REST-Aufruf für das Einfügen einer Anforderung in die Datenbank dar. Sie ruft eine Funktion im REPO auf, welche das Einfügen übernimmt.
+ : Diese Funktion stellt den REST-Aufruf für das Einfügen einer Anforderung in die Datenbank dar. Sie ruft eine Funktion im REPO auf, welche das Einfügen übernimmt und leitet alle möglichen Werte aller Varianten an diese weiter.
  : @param $pkg-id ID des Paketes
  : @param $pkg-version-id Version des Paketes
  : @param $ref-id ID der Aktivität
  : @param $req-id ID der Anforderung
+ : @param $template-type Variante der MASTER-Schablone (Funktional, Prozess, Umgebung, Eigenschaft)
  : @param $condition-type Typ der Bedingung 
  : @param $condition-comparisonItem Vergleichsobjekt-Baustein der Bedingung
  : @param $condition-value Wert-Baustein der Bedingung 
@@ -141,7 +142,8 @@ declare %restxq:path("relist/delete/{$pkg-id}/{$pkg-version}/{$ref-id}/{$req-id}
  :)
 declare %restxq:path("restancil/save/{$pkg-id}/{$pkg-version-id}/{$ref-id}")
         %restxq:POST
-        %restxq:query-param("req-id","{$req-id}")      
+        %restxq:query-param("req-id","{$req-id}")   
+        %restxq:query-param("template-type","{$template-type}","")   
         %restxq:query-param("type","{$condition-type}","")
         %restxq:query-param("comparisonItem","{$condition-comparisonItem}","")
         %restxq:query-param("value","{$condition-value}","")
@@ -157,12 +159,13 @@ declare %restxq:path("restancil/save/{$pkg-id}/{$pkg-version-id}/{$ref-id}")
         %restxq:query-param("processverb-detail","{$processverb-detail}","")
         %restxq:query-param("processverb","{$processverb}","")
         %restxq:query-param("category","{$category}","")
-        updating function page:save-requirement($pkg-id,$pkg-version-id,$ref-id,$req-id,$condition-type,$condition-comparisonItem,$condition-value,$condition-subject, $condition-actor,$system,$liability,$actor,$functionality,$object-detail1,$object,$object-detail2,$processverb-detail,$processverb,$category) {
+        updating function page:save-requirement($pkg-id,$pkg-version-id,$ref-id,$req-id,$template-type,$condition-type,$condition-comparisonItem,$condition-value,$condition-subject, $condition-actor,$system,$liability,$actor,$functionality,$object-detail1,$object,$object-detail2,$processverb-detail,$processverb,$category) {
           let $condition := switch($condition-type)
                              case "event" return re:new-condition-event($condition-subject)
                              case "logic" return re:new-condition-logic($condition-comparisonItem,$condition-value)
+                             case "timespan" return re:new-condition-timespan()
                              default return ()
            return
-           re:save($pkg-id,$pkg-version-id,$ref-id,$req-id,$condition,$system,$liability,$actor,$functionality,$object-detail1,$object,$object-detail2,$processverb-detail,$processverb,$category)
+           re:save($pkg-id,$pkg-version-id,$ref-id,$req-id,$template-type,$condition,$system,$liability,$actor,$functionality,$object-detail1,$object,$object-detail2,$processverb-detail,$processverb,$category)
            ,db:output(<restxq:redirect>/requirements-manager/assist/{$pkg-id}/{$pkg-version-id}/{$ref-id}</restxq:redirect>)
 };
