@@ -16,6 +16,56 @@ function switchSystemAndObject() {
 	}
 }
 
+function showEventCondition() {
+	$('#span-condition-event').show()
+	switchSystemAndObject()
+	$('.re-input#subject').focus().click().val('')
+	$('.re-input#type').val('event')
+	console.log("ereignis-master on")
+}
+
+function hideEventCondition() {
+	$('#span-condition-event').hide()
+  switchSystemAndObject()
+  $('.re-input#system').focus().click()
+  $('.re-input#type').val('')
+  console.log("ereignis-master off")
+}
+
+function showLogicCondition() {
+	$('.re-input#system').focus().click()
+	$('#span-condition-logic').show()
+  switchSystemAndObject()
+	$('.re-input#comparisonItem').focus().click().val('')
+	$('.re-input#value').val('')
+	$('.re-input#type').val('logic')
+	console.log("logic-master on")
+}
+
+function hideLogicCondition() {
+	$('#span-condition-logic').hide()
+	switchSystemAndObject()
+	$('.re-input#system').focus().click()
+	$('.re-input#type').val('')
+	console.log("logic-master off")
+}
+
+function showTimespanCondition() {
+	$('.re-input#system').focus().click()
+	$('#span-condition-timespan').show()
+  switchSystemAndObject()
+	$('.re-input#type').val('timespan')
+	console.log("timespan-master on")
+}
+
+function hideTimespanCondition() {
+	$('#span-condition-timespan').hide()
+	switchSystemAndObject()
+	$('.re-input#system').focus().click()
+	$('.re-input#type').val('')
+	console.log("timespan-master off")
+}
+
   /*	Inhalt vom Formelement wird in ein FormData Objekt gepackt um es via POST
 	übergeben zu können */
 function serializeObject($form)

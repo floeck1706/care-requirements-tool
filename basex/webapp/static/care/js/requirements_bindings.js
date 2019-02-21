@@ -125,31 +125,15 @@ $('.btn#prevPage').bind({
 $(document).bind({
 	keypress: function(event){
 		if(event.ctrlKey && event.keyCode==2) {
+      
 			event.preventDefault()
 			if(!$("#span-condition-event").is(':visible') & !$("#span-condition-logic").is(':visible')) {
-				$('#span-condition-event').toggle()
-				switchSystemAndObject()
-				$('.re-input#subject').focus().click().val('')
-				$('.re-input#type').val('event')
-				console.log("ereignis-master on")
+				showEventCondition()
 			} else if($("#span-condition-event").is(':visible') & !$("#span-condition-logic").is(':visible')) {
-				$('#span-condition-event').toggle()
-				switchSystemAndObject()
-				$('.re-input#system').focus().click()
-				
-				$('#span-condition-logic').toggle()
-				switchSystemAndObject()
-				$('.re-input#comparisonItem').focus().click().val('')
-				$('.re-input#value').val('')
-				$('.re-input#type').val('logic')
-				console.log("ereignis-master off")
-				console.log("logic-master on")
+				hideEventCondition()
+        showLogicCondition()
 			} else {
-				$('#span-condition-logic').toggle()
-				switchSystemAndObject()
-				$('.re-input#system').focus().click()
-				$('.re-input#type').val('')
-				console.log("logic-master off")
+				hideLogicCondition()
 			}
 		}
 		if(event.ctrlKey && event.keyCode==10) {

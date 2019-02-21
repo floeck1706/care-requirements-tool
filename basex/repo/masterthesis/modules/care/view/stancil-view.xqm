@@ -199,7 +199,7 @@ declare function view:info-tooltip($element as xs:string) {
   let $content :=
     switch($element)
       case "system" return 
-        <div>Tragen Sie das System ein, für das die Anforderung erhoben wird. Ist ggf. ein Bedingungssatz erforderlich? Ein auslösendes <a id="condition-link" style="cursor:pointer" onclick="$('#span-condition-event').toggle();switchSystemAndObject();$('.re-input#condition').focus().val('')">Ereignis</a> (Strg + b) oder eine <a id="condition-logic-link" style="cursor:pointer" onclick="$('#span-condition-logic').toggle();switchSystemAndObject();$('.re-input#condition').focus().val('')">logische Bedingung</a> (erneut Strg + b)?</div>
+        <div>Tragen Sie das System ein, für das die Anforderung erhoben wird. Ist ggf. ein Bedingungssatz erforderlich? Ein auslösendes <a id="condition-link" style="cursor:pointer" onclick="showEventCondition();if($('#span-condition-logic').is(':visible')) hideLogicCondition()">Ereignis</a> (Strg + b) oder eine <a id="condition-logic-link" style="cursor:pointer" onclick="showLogicCondition();if($('#span-condition-event').is(':visible')) hideEventCondition()">logische Bedingung</a> (erneut Strg + b)?</div>
         
       case "liability" return <div>Tragen Sie eine Verbindlichkeit der Anforderung ein. Wie wichtig ist diese für das Zielsystem?</div>   
       
