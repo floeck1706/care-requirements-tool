@@ -10,28 +10,7 @@ import module namespace cm ="masterthesis/modules/care-manager";
 declare namespace c ="care";
 
 (:~
- : Diese Funktion generiert das HTML Element einer Anforderung nach SOPHIST Schablone
- : @param $pkg-id ID des Paketes
- : @param $pkg-version-id Version des Paketes
- : @param $ref-id ID der Aktivität
- : @param $condition Bedingung der Anforderung als XML
- : @param $system System-Baustein der Anforderung
- : @param $liability Priorität-Baustein der Anforderung
- : @param $actor Akteur-Baustein der Anforderung
- : @param $functionality Art der Funktionalität-Baustein der Anforderung
- : @param $object-detail1 Präzisierung 1-Baustein des Objekts
- : @param $object Objekt-Baustein der Anforderung
- : @param $object-detail2 Präzisierung 2-Baustein des Objekts
- : @param $processverb-detail Konkretisierungs-Baustein des Prozesswortes
- : @param $processverb Prozesswort-Baustein
- : @return XML der Anforderung
-:)
-declare function re:new-requirement($pkg-id, $pkg-version-id, $ref-id, $condition, $system, $liability, $actor, $functionality,$object-detail1, $object,$object-detail2,$processverb-detail, $processverb) {
-  re:new-requirement(random:uuid(),(),$pkg-id, $pkg-version-id, $ref-id, $condition, $system, $liability, $actor, $functionality,$object-detail1, $object,$object-detail2,$processverb-detail, $processverb,())
-};
-
-(:~
- : Diese Funktion generiert das HTML Element einer Bedingung nach dem LogikMaster
+ : Diese Funktion generiert das XML Element einer Bedingung nach dem LogikMaster
  : @param $comparison-item Vergleichobjekt-Baustein der Bedingung
  : @param $value Wert-Baustein der Bedingung
  : @return XML der Bedingung
