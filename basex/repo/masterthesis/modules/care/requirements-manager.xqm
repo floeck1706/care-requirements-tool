@@ -28,9 +28,11 @@ declare function re:new-condition-logic($comparison-item, $value) {
 (:~
  : Diese Funktion generiert das XML Element einer Bedingung nach dem EreignisMaster
  : @param $event Ereignis-Baustein
+ : @param $event-actor Akteur-Baustein für detaillierte Events
+ : @param $event-object Objekt-Baustein für detaillierte Events
  : @return XML der Bedingung
 :)
-declare function re:new-condition-event($event) {
+declare function re:new-condition-event($event, $event-actor, $event-object) {
   <Condition Type="event">
     <Conjunction>Sobald</Conjunction>
     <SubjectDescription>das Ereignis</SubjectDescription>

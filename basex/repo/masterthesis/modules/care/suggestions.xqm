@@ -230,13 +230,24 @@ declare function rsugg:possible-processverbdetails($care-pkg,$reference) {
 };
 
 (:~
+ : Diese Funktion generiert die Vorschläge für Zustände von Objekten
+ : @param $reference Aktivität
+ : @return Vorschläge als XML
+:)
+declare function rsugg:possible-states($reference) {
+  let $states := for $object in rsugg:possible-objects($reference)[@State!=""] return <entry Id="{random:uuid()}" Name="{$object/@State}" Type="Re ReObjectDetail1 ReFavorite" Icon="glyphicon glyphicon-file"/>
+    
+  return $states
+};
+
+(:~
  : Diese Funktion generiert die Vorschläge für die Präzisierung 1 des Objekts der Schablone
  : @param $care-pkg Paket
  : @param $reference Aktivität
  : @return Vorschläge als XML
 :)
 declare function rsugg:possible-objectdetails1($care-pkg,$reference) {
-  let $state-objectdetails1 := for $object in rsugg:possible-objects($reference)[@State!=""] return <entry Id="{random:uuid()}" Name="{$object/@State}" Type="Re ReObjectDetail1 ReFavorite" Icon="glyphicon glyphicon-file"/>
+  let $state-objectdetails1 := rsugg:possible-states($reference)
   let $other-objectdetails1 := for $objectdetail1 in distinct-values($care-pkg//c:ObjectDetail1/string()) return <entry Id="{random:uuid()}" Name="{$objectdetail1}" Type="Re ReObjectDetail1 ReFavorite" Icon="glyphicon glyphicon-star"/>
   
   return $state-objectdetails1 | $other-objectdetails1

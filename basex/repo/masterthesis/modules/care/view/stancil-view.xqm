@@ -41,37 +41,26 @@ declare function view:stancil-panel($current-package,$compare-package, $ref-id, 
  : @return HTML-Panel für die Eingabe in die Bedingung der Schablone
  :)
 declare function view:stancil-form-condition($current-package,$ref-id, $requirement) {
-  let $care-ref := $current-package/c:Activity[@Id=$ref-id] return
-  (<input type="hidden"  class="re-input" id="type" name="type" value="{$requirement/c:Condition/@Type}"/>
-  ,<span id="span-condition-event" style="{if($requirement and $requirement/c:Condition/@Type='event') then '' else 'display:none'}">
+  
+  let $care-ref := $current-package/c:Activity[@Id=$ref-id] return (
+  
+  <span id="span-condition" style="{if($requirement and $requirement/c:Condition) then '' else 'display:none'}">
+  
+  <input type="hidden"  class="re-input" id="type" name="type" value="{$requirement/c:Condition/@Type}"/>
+  
+  <span id="span-condition-event" style="{if($requirement and $requirement/c:Condition/@Type='event') then '' else 'display:none'}">
     <input type="text" id="conjunction" class="re-tooltip re-input re-condition re-disabled" style="width:5%;min-width:150px" disabled="true" value="Sobald"/>
-    <input type="text" id="subject-description" class="re-tooltip re-input re-condition re-disabled" style="width:7%;min-width:150px" disabled="true" value="das Ereignis"/>
+    <input type="text" id="event-description" class="re-tooltip re-input re-condition re-disabled" style="width:7%;min-width:150px" disabled="true" value="das Ereignis"/>
     
     {ui:autocomplete-search-bar(
         rsugg:possible-events($care-ref)
-        ,<input type="text" id="subject" name="subject" tabindex="1" placeholder="&#60;Ereignis&#62;" class="re-tooltip re-input re-condition" style="width:15%;min-width:150px" data-content="{view:info-tooltip('event')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Condition[@Type='event']/c:Subject/string() else ()}"/>)}
+        ,<input type="text" id="event" name="event" tabindex="1" placeholder="&#60;Ereignis&#62;" class="re-tooltip re-input re-condition" style="width:15%;min-width:150px" data-content="{view:info-tooltip('event')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Condition[@Type='event']/c:Subject/string() else ()}"/>)}
         
-    {ui:autocomplete-search-bar(
-        rsugg:possible-eventactors($current-package,$care-ref)
-        ,<input type="text" id="event-actor" name="event-actor" tabindex="1" placeholder="&#60;Akteur&#8260;System&#62;" class="re-tooltip re-input re-condition" style="width:15%;min-width:150px; display:none;" data-content="{view:info-tooltip('event-actor')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Condition[@Type='event']/c:Actor/string() else ()}"/>)}
+        <input type="text" id="verb" class="re-tooltip re-input re-condition re-disabled" style="width:5%;min-width:100px" disabled="true" value="eintritt"/>
         
-    {ui:autocomplete-search-bar(
-        rsugg:possible-eventobjects($current-package,$care-ref)
-        ,<input type="text" id="event-object" name="event-object" tabindex="1" placeholder="&#60;Objekt&#62;" class="re-tooltip re-input re-condition" style="width:15%;min-width:150px; display:none;" data-content="{view:info-tooltip('event-object')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Condition[@Type='event']/c:Object/string() else ()}"/>)}  
-        
-        <input type="text" id="functiontag" tabindex="1" class="re-tooltip re-input re-condition re-disabled" style="width:5%;min-width:150px;display:none;" disabled="true" value="die Funktion"/>
-        {ui:autocomplete-search-bar(
-        rsugg:possible-functions($current-package,$care-ref)
-        ,<input type="text" id="function" name="function" tabindex="1" placeholder="&#60;Funktion&#62;" class="re-tooltip re-input re-condition" style="width:15%;min-width:150px; display:none;" data-content="{view:info-tooltip('function')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Condition[@Type='event']/c:Function/string() else ()}"/>)}  
-    
-    {ui:autocomplete-search-bar(
-        rsugg:possible-condition-processverbs($current-package,$care-ref)
-        ,<input type="text" id="verb" tabindex="1" placeholder="&#60;Prozessverb&#62;" class="re-tooltip re-input re-condition re-disabled" style="width:5%;min-width:150px" disabled="true" data-content="{view:info-tooltip('verb')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Condition[@Type='event']/c:Verb/string() else 'eintritt'}"/>)}
-    
-    <span>,</span>
   </span>
   
-  ,<span id="span-condition-logic" style="{if($requirement and $requirement/c:Condition/@Type='logic') then '' else 'display:none'}">
+  <span id="span-condition-logic" style="{if($requirement and $requirement/c:Condition/@Type='logic') then '' else 'display:none'}">
     
     <input type="text" id="conjunction" disabled="true" class="re-tooltip re-input re-condition re-disabled" style="width:5%;min-width:150px" value="Falls"/>
     
@@ -87,14 +76,47 @@ declare function view:stancil-form-condition($current-package,$ref-id, $requirem
     
     <input type="text" id="verb" class="re-tooltip re-input re-condition" style="width:5%;min-width:100px" disabled="true" value="ist"/>
     <span>,</span>
-  </span>,
+  </span>
+  
   <span id="span-condition-timespan" style="{if($requirement and $requirement/c:Condition/@Type='timespan') then '' else 'display:none'}">
-    
     <input type="text" id="conjunction" disabled="true" class="re-tooltip re-input re-condition re-disabled" style="width:5%;min-width:150px" value="Solange"/>
     
+    {ui:autocomplete-search-bar(
+        rsugg:possible-objects($care-ref)
+        ,<input type="text" id="state-object" name="state-object" tabindex="1" placeholder="&#60;Objekt&#8260;System&#62;" class="re-tooltip re-input re-condition" style="width:15%;min-width:150px;" data-content="{view:info-tooltip('state-object')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Condition[@Type='timespan']/c:Object/string() else ()}"/>)}
+        
+     <input type="text" id="statetag" tabindex="1" class="re-tooltip re-input re-condition re-disabled" style="width:5%;min-width:150px;" disabled="true" value="sich im Zustand"/>
+        {ui:autocomplete-search-bar(
+        rsugg:possible-states($care-ref)
+        ,<input type="text" id="state" name="state" tabindex="1" placeholder="&#60;Zustand&#62;" class="re-tooltip re-input re-condition" style="width:15%;min-width:150px;" data-content="{view:info-tooltip('state')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Condition[@Type='timespan']/c:State/string() else ()}"/>)}
+        <input type="text" id="verb" tabindex="1" class="re-tooltip re-input re-condition re-disabled" style="width:5%;min-width:150px;" disabled="true" value="befindet"/>
+        
+  </span>
+  
+  <span id="span-condition-process" style="{if($requirement and $requirement/c:Condition/c:Process) then '' else 'display:none'}">
+  
+   {ui:autocomplete-search-bar(
+        rsugg:possible-eventactors($current-package,$care-ref)
+        ,<input type="text" id="event-actor" name="event-actor" tabindex="1" placeholder="&#60;Akteur&#8260;System&#62;" class="re-tooltip re-input re-condition" style="width:15%;min-width:150px;" data-content="{view:info-tooltip('event-actor')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Condition/c:Process/c:Actor/string() else ()}"/>)}
+        
+    {ui:autocomplete-search-bar(
+        rsugg:possible-eventobjects($current-package,$care-ref)
+        ,<input type="text" id="event-object" name="event-object" tabindex="1" placeholder="&#60;Objekt&#62;" class="re-tooltip re-input re-condition" style="width:15%;min-width:150px;" data-content="{view:info-tooltip('event-object')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Condition/c:Process/c:Object/string() else ()}"/>)}  
+        
+        <input type="text" id="event-functiontag" tabindex="1" class="re-tooltip re-input re-condition re-disabled" style="width:5%;min-width:150px; display:none;" disabled="true" value="die Funktion"/>
+        {ui:autocomplete-search-bar(
+        rsugg:possible-functions($current-package,$care-ref)
+        ,<input type="text" id="event-function" name="event-function" tabindex="1" placeholder="&#60;Funktion&#62;" class="re-tooltip re-input re-condition" style="width:15%;min-width:150px; display:none;" data-content="{view:info-tooltip('function')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Condition/c:Process/c:Function/string() else ()}"/>)}  
     
-    <span>,</span>
-  </span>)
+    {ui:autocomplete-search-bar(
+        rsugg:possible-condition-processverbs($current-package,$care-ref)
+        ,<input type="text" id="event-verb" tabindex="1" placeholder="&#60;Prozessverb&#62;" class="re-tooltip re-input re-condition" style="width:5%;min-width:150px" data-content="{view:info-tooltip('verb')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Condition/c:Process/c:Verb/string() else ()}"/>)}
+  
+  </span>
+  
+  <span>,</span>
+  
+</span>)
 };
 
 (:~
@@ -217,19 +239,19 @@ declare function view:info-tooltip($element as xs:string) {
       
       case "processverb-detail" return <div>Konkretisieren Sie das Prozesswort <span id="processverb-detail-in-tooltip" style="color:green"></span>. <a onclick="$('#process-detail').toggle().val('')"><i class="glyphicon glyphicon-remove pull-right"/></a></div>
       
-      case "event" return <div>Welches Ereignis muss eintreten, damit die Anforderung, welche im Hauptsatz formuliert ist, greift? Wollen Sie den <a id="event-details-link" onclick="$('#subject-description').hide();$('#subject').hide().val('');$('#event-actor').show();$('#event-object').show();$('#verb').prop('disabled', false).removeClass('re-disabled').val('');">Ereignis-Prozess</a> detaillierter Beschreiben?</div>
+      case "event" return <div>Welches Ereignis muss eintreten, damit die Anforderung, welche im Hauptsatz formuliert ist, greift? Wollen Sie den <a id="event-details-link" onclick="$('#event-description').hide();$('#event').hide().val('');$('#span-condition-process').show();$('#verb').hide();">Ereignis-Prozess</a> detaillierter Beschreiben?</div>
       
       case "gateway" return <div>Welche Entscheidungsparameter oder welche Frage ist Basis der Entscheidung?</div>
       
       case "transition" return <div>Welche Entscheidung muss getroffen werden, damit die Anforderung greift? Dies Lässt sich aus dem Label der Transistion von dem vorherigen Gateway herleiten</div>
       
-       case "event-actor" return <div>Welcher Akteur oder welches System löst das Ereignis aus? Kann oft aus der Rolle des Vorgängers abgeleitet werden. <a onclick="$('#event-actor').hide().val('');$('#event-object').hide().val('');$('#function').hide().val('');$('#functiontag').hide().val('');$('#subject-description').show();$('#subject').show();$('#verb').prop('disabled',true).addClass('re-disabled').val('eintritt');"><i class="glyphicon glyphicon-remove pull-right"/></a></div>
+       case "event-actor" return <div>Welcher Akteur oder welches System löst das Ereignis aus? Kann oft aus der Rolle des Vorgängers abgeleitet werden. <a onclick="$('#span-condition-process').hide();$('#event-actor').val('');$('#event-object').val('');$('#event-function').hide().val('');$('#event-functiontag').hide();$('#event-description').show();$('#event').show();$('#verb').show();"><i class="glyphicon glyphicon-remove pull-right"/></a></div>
        
-      case "event-object" return <div>Um welches Objekt geht es im Ereignis? Kann oft aus den Dokumenten oder dem Namen des Vorgängers abgeleitet werden. Oder ist das Objekt eine <a id="event-function-link" onclick="$('#event-object').hide().val('');$('#function').show();$('#functiontag').show();">Funktion</a>? <a onclick="$('#event-actor').hide().val('');$('#event-object').hide().val('');$('#function').hide().val('');$('#functiontag').hide().val('');$('#subject-description').show();$('#subject').show();$('#verb').prop('disabled',true).addClass('re-disabled').val('eintritt');"><i class="glyphicon glyphicon-remove pull-right"/></a></div>
+      case "event-object" return <div>Um welches Objekt geht es im Ereignis? Kann oft aus den Dokumenten oder dem Namen des Vorgängers abgeleitet werden. Oder ist das Objekt eine <a id="event-function-link" onclick="$('#event-object').hide().val('');$('#event-function').show();$('#event-functiontag').show();">Funktion</a>? <a onclick="$('#span-condition-process').hide();$('#event-actor').val('');$('#event-object').val('');$('#event-function').hide().val('');$('#event-functiontag').hide();$('#event-description').show();$('#event').show();$('#verb').show();"><i class="glyphicon glyphicon-remove pull-right"/></a></div>
       
-      case "function" return <div>Um welches Funktion geht es im Ereignis? Kann oft aus dem Vorgänger abgeleitet werden. Oder ist es doch ein <a id="event-function-link" onclick="$('#event-object').show();$('#function').hide().val('');$('#functiontag').hide().val('');">Objekt</a>? <a onclick="$('#event-actor').hide().val('');$('#event-object').hide().val('');$('#function').hide().val('');$('#functiontag').hide().val('');$('#subject-description').show();$('#subject').show();$('#verb').prop('disabled',true).addClass('re-disabled').val('eintritt');"><i class="glyphicon glyphicon-remove pull-right"/></a></div>
+      case "function" return <div>Um welches Funktion geht es im Ereignis? Kann oft aus dem Vorgänger abgeleitet werden. Oder ist es doch ein <a id="event-function-link" onclick="$('#event-object').show();$('#event-function').hide().val('');$('#event-functiontag').hide();">Objekt</a>? <a onclick="$('#span-condition-process').hide();$('#event-actor').val('');$('#event-object').val('');$('#event-function').hide().val('');$('#event-functiontag').hide();$('#event-description').show();$('#event').show();$('#verb').show();"><i class="glyphicon glyphicon-remove pull-right"/></a></div>
       
-      case "verb" return <div>Was passiert in dem Ereignis? Was ist das Prozessverb? Bei auslösenden Ereignissen ist dieses in der Vergangenheitsform.</div>
+      case "event-verb" return <div>Was passiert in dem Ereignis? Was ist das Prozessverb? Bei auslösenden Ereignissen ist dieses in der Vergangenheitsform.</div>
       
       default return "Kein Tooltip"
       
