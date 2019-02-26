@@ -17,6 +17,7 @@ function switchSystemAndObject() {
 }
 
 function showEventCondition() {
+	$('#span-condition').show()
 	$('#span-condition-event').show()
 	switchSystemAndObject()
 	$('.re-input#subject').focus().click().val('')
@@ -25,6 +26,7 @@ function showEventCondition() {
 }
 
 function hideEventCondition() {
+  $('#span-condition').hide()
 	$('#span-condition-event').hide()
   switchSystemAndObject()
   $('.re-input#system').focus().click()
@@ -33,6 +35,7 @@ function hideEventCondition() {
 }
 
 function showLogicCondition() {
+  $('#span-condition').show()
 	$('.re-input#system').focus().click()
 	$('#span-condition-logic').show()
   switchSystemAndObject()
@@ -43,6 +46,7 @@ function showLogicCondition() {
 }
 
 function hideLogicCondition() {
+  $('#span-condition').hide()
 	$('#span-condition-logic').hide()
 	switchSystemAndObject()
 	$('.re-input#system').focus().click()
@@ -51,6 +55,7 @@ function hideLogicCondition() {
 }
 
 function showTimespanCondition() {
+  $('#span-condition').show()
 	$('.re-input#system').focus().click()
 	$('#span-condition-timespan').show()
   switchSystemAndObject()
@@ -59,6 +64,7 @@ function showTimespanCondition() {
 }
 
 function hideTimespanCondition() {
+  $('#span-condition').hide()
 	$('#span-condition-timespan').hide()
 	switchSystemAndObject()
 	$('.re-input#system').focus().click()
