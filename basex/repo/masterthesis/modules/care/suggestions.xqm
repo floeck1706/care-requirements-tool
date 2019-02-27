@@ -241,6 +241,19 @@ declare function rsugg:possible-states($reference) {
 };
 
 (:~
+ : Diese Funktion generiert die Vorschläge für Objekte und Systeme des zustandsabhängigen Zeitraummasters
+ : @param $care-pkg Paket
+ : @param $reference Aktivität
+ : @return Vorschläge als XML
+:)
+declare function rsugg:possible-stateobjects($care-pkg,$reference) {
+  let $objects := rsugg:possible-objects($reference)
+  let $systems := rsugg:possible-systems($care-pkg,$reference)
+    
+  return $objects | $systems
+};
+
+(:~
  : Diese Funktion generiert die Vorschläge für die Präzisierung 1 des Objekts der Schablone
  : @param $care-pkg Paket
  : @param $reference Aktivität

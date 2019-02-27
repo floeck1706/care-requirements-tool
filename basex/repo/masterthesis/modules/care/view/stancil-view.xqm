@@ -82,7 +82,7 @@ declare function view:stancil-form-condition($current-package,$ref-id, $requirem
     <input type="text" id="conjunction" disabled="true" class="re-tooltip re-input re-condition re-disabled" style="width:5%;min-width:150px" value="Solange"/>
     
     {ui:autocomplete-search-bar(
-        rsugg:possible-objects($care-ref)
+        rsugg:possible-stateobjects($current-package,$care-ref)
         ,<input type="text" id="state-object" name="state-object" tabindex="1" placeholder="&#60;Objekt&#8260;System&#62;" class="re-tooltip re-input re-condition" style="width:15%;min-width:150px;" data-content="{view:info-tooltip('state-object')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Condition[@Type='timespan']/c:Object/string() else ()}"/>)}
         
      <input type="text" id="statetag" tabindex="1" class="re-tooltip re-input re-condition re-disabled" style="width:5%;min-width:150px;" disabled="true" value="sich im Zustand"/>
