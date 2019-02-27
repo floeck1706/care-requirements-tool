@@ -32,6 +32,9 @@ declare function ui:page($content) {
       
       <!-- Loading Immybox Framework CSS -->
       <link rel='stylesheet' type='text/css' href='{$ui:prefix}/static/immybox-master/immybox.css'/>
+      
+      <!-- Loading Flag-Icons CSS -->
+      <link href="{$ui:prefix}/static/flag-icon-css-master/css/flag-icon.css" rel="stylesheet"/>
     
       <!-- Loading CARE UI -->
       <link href="{$ui:prefix}/static/care/css/care-ui.css" rel="stylesheet"/>
@@ -98,6 +101,12 @@ declare function ui:navbar() {
                 <li class="pull-right"><a href="{$ui:prefix}/requirements-manager/list"><i class="glyphicon glyphicon-list"/> Anforderungsliste</a></li>
                 <li class="pull-right"><a href="{$ui:prefix}/glossary"><i class="glyphicon glyphicon-book"/> Glossar</a></li>
                </ul>
+               
+               <ul class="pull-right lng-btn">
+                 <li class="pull-right"><a onclick=""><span id="lng-label-en" class=""><span class="flag-icon flag-icon-gb"></span></span></a></li>
+                 <li class="pull-right"><a onclick=""><span id="lng-label-de" class="label label-success"><span class="flag-icon flag-icon-de"></span></span></a></li>
+               </ul>
+               
             </div>
           </nav>
         </div>

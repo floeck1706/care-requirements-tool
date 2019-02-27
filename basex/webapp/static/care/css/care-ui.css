@@ -276,3 +276,8 @@ tr.list-active {
 	background-color: #E9EDF2 !important;
 	color:black !important;
 }
+
+.lng-btn {
+	margin-top: 10px;
+	margin-right: 10px;
+}
