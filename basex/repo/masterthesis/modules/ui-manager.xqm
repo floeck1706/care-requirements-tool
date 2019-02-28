@@ -9,6 +9,8 @@ import module namespace util="masterthesis/modules/utilities";
 
 declare variable $ui:prefix := "";
 
+declare variable $ui:lng := "de"; (: Language Code, Default "de" can be switched to "en" :)
+
 (:~
  : Diese Funktion generiert das Template für die HTML Seite. Es generiert die Imports für alle verwendeten Frameworks (Bootstrap, JQuery) um den übergebenen Inhalt
  : @param $content Der HTML Inhalt, welcher in die HTML Seite eingebettet werden soll
@@ -57,11 +59,14 @@ declare function ui:page($content) {
       
       <!-- Loading Bootstrap JS -->
       <script src="{$ui:prefix}/static/bootstrap-3.3.4-dist/js/bootstrap.min.js"></script>
-
+      
+      <!-- Loading jQuery i18next Framework for localization -->
+      <script src="{$ui:prefix}/static/jquery-i18next/jquery-i18next.min.js"></script>
       
       <!-- Loading CARE CUSTOM JS -->
       <script src="{$ui:prefix}/static/care/js/requirements.js"></script>
       <script src="{$ui:prefix}/static/care/js/inspections.js"></script>
+      <script src="{$ui:prefix}/static/care/js/localization.js"></script>
       
       <!-- Loading BPMN.IO -->
       <script src="{$ui:prefix}/static/bpmn-js-seed-master/bower_components/bpmn-js/dist/bpmn-viewer.js"></script>
