@@ -9,8 +9,6 @@ import module namespace util="masterthesis/modules/utilities";
 
 declare variable $ui:prefix := "";
 
-declare variable $ui:lng := "de"; (: Language Code, Default "de" can be switched to "en" :)
-
 (:~
  : Diese Funktion generiert das Template für die HTML Seite. Es generiert die Imports für alle verwendeten Frameworks (Bootstrap, JQuery) um den übergebenen Inhalt
  : @param $content Der HTML Inhalt, welcher in die HTML Seite eingebettet werden soll
@@ -91,6 +89,7 @@ declare function ui:page($content) {
  : @return HTML-div der Navigationsleiste
  :)
 declare function ui:navbar() {
+
   <div class="row demo-row">
         <div class="col-xs-12">
           <nav class="navbar navbar-inverse navbar-embossed navbar-fixed-top" role="navigation">
@@ -107,9 +106,9 @@ declare function ui:navbar() {
                 <li class="pull-right"><a href="{$ui:prefix}/glossary"><i class="glyphicon glyphicon-book"/> Glossar</a></li>
                </ul>
                
-               <ul class="pull-right lng-btn">
-                 <li class="pull-right"><a onclick=""><span id="lng-label-en" class=""><span class="flag-icon flag-icon-gb"></span></span></a></li>
-                 <li class="pull-right"><a onclick=""><span id="lng-label-de" class="label label-success"><span class="flag-icon flag-icon-de"></span></span></a></li>
+               <ul class="pull-right">
+                 <li class="pull-right lng-btn"><a id="lang-en" onclick="setLngEN()"><span id="lng-label-en"><span class="flag-icon flag-icon-gb"></span></span></a></li>
+                 <li class="pull-right lng-btn"><a id="lang-de" class="activeLng" onclick="setLngDE()"><span id="lng-label-de" class="label label-success"><span class="flag-icon flag-icon-de"></span></span></a></li>
                </ul>
                
             </div>

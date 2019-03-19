@@ -280,4 +280,13 @@ tr.list-active {
 .lng-btn {
 	margin-top: 10px;
 	margin-right: 10px;
+	cursor: pointer;
+}
+
+.template-select{
+	list-style:none;
+}
+
+a{
+	cursor: pointer;
 }

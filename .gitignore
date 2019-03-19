@@ -12,3 +12,5 @@ basex/bin/basexhttp
 *.txt~
 
 basex/basex
+
+basex/bin/basexgui
