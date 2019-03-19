@@ -65,17 +65,18 @@ declare function view:stancil-form-condition($current-package,$ref-id, $requirem
     <input type="text" id="conjunction" disabled="true" class="re-tooltip re-input re-condition re-disabled" style="width:5%;min-width:150px" value="Falls"/>
     
     {ui:autocomplete-search-bar(
-        rsugg:possible-conditions($care-ref)
+        rsugg:possible-compareItems($care-ref)
         ,<input type="text" id="comparisonItem" name="comparisonItem" tabindex="1" placeholder="&#60;Entscheidung&#62;" class="re-tooltip re-input re-condition" style="width:15%;min-width:200px" data-content="{view:info-tooltip('gateway')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Condition[@Type='logic']/c:ComparisonItem/string() else ()}"/>)}
         
-    <input type="text" id="comparisonOperator" class="re-tooltip re-input re-condition re-disabled" style="width:5%;min-width:150px" disabled="true" value="gleich"/>
+    {ui:autocomplete-search-bar(
+        rsugg:possible-operators($care-ref),    
+    <input type="text" id="comparisonOperator" name="comparisonOperator" tabindex="1" placeholder="&#60;Vergleichsoperator&#62;" class="re-tooltip re-input re-condition" style="width:5%;min-width:150px" data-content="{view:info-tooltip('operator')}" rel="tooltip" data-html="true" data-placement="top" value="{rsugg:possible-operators($care-ref)[1]}"/>)}
     
     {ui:autocomplete-search-bar(
-        rsugg:possible-transitions($care-ref)
-        ,<input type="text" id="value" name="value" tabindex="2" placeholder="&#60;Transition&#62;" class="re-tooltip re-input re-condition" style="width:7%;min-width:150px" data-content="{view:info-tooltip('transition')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Condition[@Type='logic']/c:Value/string() else ()}"/>)}
+        rsugg:possible-comparevalues($care-ref)
+        ,<input type="text" id="value" name="value" tabindex="2" placeholder="&#60;Wert&#62;" class="re-tooltip re-input re-condition" style="width:7%;min-width:150px" data-content="{view:info-tooltip('comparevalue')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Condition[@Type='logic']/c:Value/string() else ()}"/>)}
     
     <input type="text" id="verb" class="re-tooltip re-input re-condition" style="width:5%;min-width:100px" disabled="true" value="ist"/>
-    <span>,</span>
   </span>
   
   <span id="span-condition-timespan" style="{if($requirement and $requirement/c:Condition/@Type='timespan') then '' else 'display:none'}">
@@ -114,6 +115,10 @@ declare function view:stancil-form-condition($current-package,$ref-id, $requirem
   
   </span>
   
+   {ui:autocomplete-search-bar(
+        rsugg:possible-logicexpressions($care-ref)
+        ,<input type="text" id="logicexpression" tabindex="1" placeholder="&#60;logische Aussage&#62;" class="re-tooltip re-input re-condition" style="width:5%;min-width:150px; {if($requirement and $requirement/c:Condition/c:LogicExpression) then '' else 'display:none'}" data-content="{view:info-tooltip('logicexpression')}" rel="tooltip" data-html="true" data-placement="top" value="{if($requirement) then $requirement/c:Condition/c:LogicExpression/string() else ()}"/>)}
+  
   <span>,</span>
   
 </span>)
@@ -138,7 +143,7 @@ declare function view:stancil-form($current-package,$compare-package, $ref-id, $
       
       
       <div class="pull-right">
-        <ul class="pull-right" style="list-style:none;">
+        <ul class="pull-right template-select">
           <li><a id="" onclick="" tabindex=""><i class="glyphicon glyphicon-wrench"/></a></li>
           <li><a onclick="" tabindex=""><i class="glyphicon glyphicon-globe"/></a></li>
           <li><a onclick="" tabindex=""><i class="glyphicon glyphicon-dashboard"/></a></li>
@@ -243,7 +248,7 @@ declare function view:info-tooltip($element as xs:string) {
       
       case "gateway" return <div>Welche Entscheidungsparameter oder welche Frage ist Basis der Entscheidung?</div>
       
-      case "transition" return <div>Welche Entscheidung muss getroffen werden, damit die Anforderung greift? Dies Lässt sich aus dem Label der Transistion von dem vorherigen Gateway herleiten</div>
+      case "comparevalue" return <div>Welche Entscheidung muss getroffen werden, damit die Anforderung greift? Dies Lässt sich aus dem Label der Transistion von dem vorherigen Gateway herleiten</div>
       
        case "event-actor" return <div>Welcher Akteur oder welches System löst das Ereignis aus? Kann oft aus der Rolle des Vorgängers abgeleitet werden. <a onclick="$('#span-condition-process').hide();$('#event-actor').val('');$('#event-object').val('');$('#event-function').hide().val('');$('#event-functiontag').hide();$('#event-description').show();$('#event').show();$('#verb').show();"><i class="glyphicon glyphicon-remove pull-right"/></a></div>
        
@@ -252,6 +257,10 @@ declare function view:info-tooltip($element as xs:string) {
       case "function" return <div>Um welches Funktion geht es im Ereignis? Kann oft aus dem Vorgänger abgeleitet werden. Oder ist es doch ein <a id="event-function-link" onclick="$('#event-object').show();$('#event-function').hide().val('');$('#event-functiontag').hide();">Objekt</a>? <a onclick="$('#span-condition-process').hide();$('#event-actor').val('');$('#event-object').val('');$('#event-function').hide().val('');$('#event-functiontag').hide();$('#event-description').show();$('#event').show();$('#verb').show();"><i class="glyphicon glyphicon-remove pull-right"/></a></div>
       
       case "event-verb" return <div>Was passiert in dem Ereignis? Was ist das Prozessverb? Bei auslösenden Ereignissen ist dieses in der Vergangenheitsform.</div>
+      
+      case "operator" return <div></div>
+      
+      case "logicexpression" return <div></div>
       
       default return "Kein Tooltip"
       

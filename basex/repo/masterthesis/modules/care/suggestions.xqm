@@ -48,8 +48,8 @@ declare function rsugg:possible-events($act) {
  : @param $act Aktivität
  : @return Vorschläge als XML
 :)
-declare function rsugg:possible-transitions($act) {
-  let $transitions := for $actor in distinct-values($act/c:ContextInformation/c:Predecessors/c:Predecessor[@Type="ExclusiveGateway"]/@Transition/string()) return <entry Id="{random:uuid()}" Name="{$actor}" Type="Re ReActor ReFavorite" Icon="glyphicon glyphicon-star"/>
+declare function rsugg:possible-comparevalues($act) {
+  let $transitions := for $actor in distinct-values($act/c:ContextInformation/c:Predecessors/c:Predecessor[@Type="ExclusiveGateway"]/@Transition/string()) return <entry Id="{random:uuid()}" Name="{$actor}" Type="Re ReActor ReFavorite" Icon="glyphicon glyphicon-random"/>
   return $transitions
 };
 
@@ -141,13 +141,23 @@ declare function rsugg:possible-systems($care-pkg,$reference) {
 };
 
 (:~
- : Diese Funktion generiert die Vorschläge für die Bedingung der Schablone (depricated)
+ : Diese Funktion generiert die Vorschläge für Vergleichsgegenstände
  : @param $act Aktivität
  : @return Vorschläge als XML
 :)
-declare function rsugg:possible-conditions($act) {
-  let $conditions := for $actor in distinct-values($act/c:ContextInformation/c:Predecessors/c:Predecessor[@Type="ExclusiveGateway"]/string()) return <entry Id="{random:uuid()}" Name="{$actor}" Type="Re ReActor ReFavorite" Icon="glyphicon glyphicon-star"/>
-  return $conditions
+declare function rsugg:possible-compareItems($act) {
+  let $items := for $value in distinct-values($act/c:ContextInformation/c:Predecessors/c:Predecessor[@Type="ExclusiveGateway"]/string()) return <entry Id="{random:uuid()}" Name="{$value}" Type="Re ReActor ReFavorite" Icon="glyphicon glyphicon-hand-right"/>
+  return $items
+};
+
+(:~
+ : Diese Funktion generiert die Vorschläge für logische Aussagen
+ : @param $act Aktivität
+ : @return Vorschläge als XML
+:)
+declare function rsugg:possible-logicexpressions($act) {
+  let $gateways := for $value in distinct-values($act/c:ContextInformation/c:Predecessors/c:Predecessor[@Type="ExclusiveGateway"]/string()) return <entry Id="{random:uuid()}" Name="{$value}" Type="Re ReActor ReFavorite" Icon="glyphicon glyphicon-hand-right"/>
+  return $gateways
 };
 
 (:~
@@ -155,11 +165,23 @@ declare function rsugg:possible-conditions($act) {
  : @return Vorschläge als XML
 :)
 declare function rsugg:possible-liabilities() {
-  let $other-liabilities := (<entry Id="{random:uuid()}" Name="muss" Type="Re ReLiability"/>
+  let $master-liabilities := (<entry Id="{random:uuid()}" Name="muss" Type="Re ReLiability"/>
                             ,<entry Id="{random:uuid()}" Name="kann" Type="Re ReLiability"/>
                             ,<entry Id="{random:uuid()}" Name="soll" Type="Re ReLiability"/>)
-  return $other-liabilities
+  return $master-liabilities
 };
+
+(:~
+ : Diese Funktion generiert die Vorschläge für die Verbindlichkeit der Schablone
+ : @return Vorschläge als XML
+:)
+declare function rsugg:possible-operators($care-ref) {
+  let $operators := (<entry Id="{random:uuid()}" Name="gleich" Type="Re"/>
+                            ,<entry Id="{random:uuid()}" Name="kleiner" Type="Re"/>
+                            ,<entry Id="{random:uuid()}" Name="größer" Type="Re"/>)
+  return $operators
+};
+
 
 (:~
  : Diese Funktion generiert die Vorschläge für die Art der Funktionalität der Schablone
